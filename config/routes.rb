@@ -4,4 +4,7 @@ Rails.application.routes.draw do
       resources :missions
     end
   end
+
+  root 'application#index'
+  get '*unmatched_route', :to => 'application#index'
 end
