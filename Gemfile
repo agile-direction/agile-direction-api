@@ -31,3 +31,12 @@ group :development, :test do
 
   gem 'rspec-rails', '~> 3.0'
 end
+
+group :test do
+  gem 'cucumber-rails', :require => false
+  gem "launchy"
+
+  # database_cleaner is not required, but highly recommended
+  gem 'database_cleaner'
+  gem 'poltergeist'
+end
