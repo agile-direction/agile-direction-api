@@ -27,6 +27,21 @@ module Api
           head(:not_found)
         end
       end
+
+      def create
+        mission = Mission.new(mission_attrs)
+        if mission.save
+          render({ json: mission.to_json({ root: true }) })
+        else
+          render({ json: { foo: "bar" }, status: 400 })
+        end
+      end
+
+      private
+
+      def mission_attrs
+        params.require(:mission).permit(:name, :description)
+      end
     end
   end
 end

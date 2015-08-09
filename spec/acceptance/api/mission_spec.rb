@@ -71,4 +71,12 @@ RSpec.describe("Mission API", { type: :request }) do
       expect(json_body['missions'].second.fetch("id")).to eq(first.id)
     end
   end
+
+  describe("CREATE") do
+    it("creates a mission") do
+      data = { mission: { name: 'Title' } }
+      post("/api/v1/missions", data)
+      expect(json_body['mission'].fetch("id")).to be
+    end
+  end
 end
