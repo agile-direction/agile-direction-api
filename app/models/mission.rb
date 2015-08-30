@@ -3,6 +3,9 @@ class Mission < ActiveRecord::Base
 
   has_many(:deliverables, -> { order "ordering DESC" })
 
+  has_many(:participants, { as: :joinable })
+  has_many(:users, { through: :participants })
+
   def progress
     requirements = deliverables.map(&:requirements).flatten!
 

@@ -1,7 +1,8 @@
 def new_mission
   Mission.new({
     name: Faker::Name.name,
-    description: Faker::Lorem.sentence
+    description: Faker::Lorem.sentence,
+    public: true
   })
 end
 

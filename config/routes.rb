@@ -9,6 +9,8 @@ Rails.application.routes.draw do
       put("order_deliverables")
     end
 
+    resources(:participants, { only: [:new, :create, :destroy] })
+
     resources(:deliverables) do
       member do
         put("order_requirements")

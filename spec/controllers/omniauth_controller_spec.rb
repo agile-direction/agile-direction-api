@@ -76,7 +76,7 @@ RSpec.describe(OmniauthController, { type: :controller }) do
         post(:callback)
       }.to change() {
         User.count
-      }.by(1)
+      }.by(0)
 
       expect(response).to redirect_to("/auth/twitter/failure")
     end

@@ -1,0 +1,7 @@
+= form_for(@participant) do |form|
+  .fill-me-in
+    = form.label(:participant)
+    = form.text_field(:participant, { autofocus: true })
+
+  = form.hidden_field(:user_id)
+  = form.submit(t("action.save"))

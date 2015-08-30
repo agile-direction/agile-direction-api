@@ -1,8 +1,11 @@
 class Requirement < ActiveRecord::Base
   include AASM
-  belongs_to :deliverable
-  validates :name, { presence: true }
-  validates :deliverable, { presence: true }
+
+  belongs_to(:deliverable)
+  has_one(:mission, { through: :deliverable })
+
+  validates(:name, { presence: true })
+  validates(:deliverable, { presence: true })
 
   before_validation :set_defaults
 
