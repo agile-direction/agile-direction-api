@@ -1,5 +1,7 @@
 # Keep Delivering
 
+[![Join the chat at https://gitter.im/keep-delivering/com](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/keep-delivering/com?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 <a href="https://travis-ci.org/agile-direction/agile-direction-api/builds" target="_blank">
   <img title="Build Status Images" src="https://travis-ci.org/agile-direction/agile-direction-api.svg">
 </a>
