@@ -51,7 +51,7 @@ RSpec.describe(MissionsController, { type: :controller }) do
 
     it "redirects to the created mission" do
       post(:create, { mission: Generator.mission.attributes })
-      expect(response).to redirect_to(Mission.last)
+      expect(response).to redirect_to(Mission.order({ created_at: :desc }).first)
     end
 
     it "re-renders the 'new' template" do

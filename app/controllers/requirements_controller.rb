@@ -3,8 +3,8 @@ class RequirementsController < ApplicationController
     except: [:index]
   })
 
-  before_action({ only: [:new, :show] }) do
-    require_user! unless @requirement.mission.public?
+  before_action({ only: [:new, :show, :create, :edit, :update, :destroy] }) do
+    require_user! unless @requirement.mission.users.none?
   end
 
   def index
@@ -17,23 +17,15 @@ class RequirementsController < ApplicationController
 
   def new
     authorize!(:create, @requirement)
-    @requirement = Requirement.new
   end
 
   def edit
-    if !@requirement.mission.public? && !current_user
-      return redirect_to(auth_path, { status: 302 })
-    end
     authorize!(:write, @requirement)
   end
 
   def create
     @deliverable = find_deliverable
     @requirement = @deliverable.requirements.new(requirement_params)
-
-    if !@deliverable.mission.public? && !current_user
-      return redirect_to(auth_path, { status: 302 })
-    end
     authorize!(:create, @requirement)
 
     respond_to do |format|
@@ -52,9 +44,6 @@ class RequirementsController < ApplicationController
   end
 
   def update
-    if !@requirement.mission.public? && !current_user
-      return redirect_to(auth_path, { status: 302 })
-    end
     authorize!(:write, @requirement)
 
     respond_to do |format|
@@ -78,6 +67,8 @@ class RequirementsController < ApplicationController
   end
 
   def destroy
+    authorize!(:destroy, @requirement)
+
     @requirement.destroy
 
     respond_to do |format|
@@ -87,43 +78,6 @@ class RequirementsController < ApplicationController
         })
       end
       format.json { head :no_content }
-    end
-  end
-
-  def start
-    respond_to do |format|
-      if @requirement.start!
-        format.html do
-          redirect_to(mission_path(@requirement.mission), {
-            notice: "Requirement was successfully started."
-          })
-        end
-
-        format.json do
-          render(:show, {
-            status: :created,
-            location: @requirement
-          })
-        end
-      end
-    end
-  end
-
-  def finish
-    respond_to do |format|
-      if @requirement.finish!
-        format.html do
-          redirect_to(mission_path(@requirement.mission), {
-            notice: "Requirement was successfully completed."
-          })
-        end
-        format.json do
-          render(:show, {
-            status: :created,
-            location: @requirement
-          })
-        end
-      end
     end
   end
 

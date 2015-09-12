@@ -1,4 +1,4 @@
-- url = @requirement.new_record? ? mission_deliverable_requirements_path(@deliverable.mission, @deliverable, { action: :create }) : mission_deliverable_requirement_path(@deliverable.mission, @deliverable, @requirement)
+- url = @requirement.new_record? ? mission_deliverable_requirements_path(@requirement.mission, @requirement.deliverable, { action: :create }) : mission_deliverable_requirement_path(@requirement.mission, @requirement.deliverable, @requirement)
 = form_for(@requirement, { url: url }) do |f|
   - if @requirement.errors.any?
     #error_explanation
