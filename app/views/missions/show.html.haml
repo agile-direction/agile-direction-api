@@ -44,3 +44,15 @@
 
   = link_to(new_mission_deliverable_path(@mission), { title: t("missions.show.add-deliverable") }) do
     = t("missions.show.add-deliverable_html", { arrow: t("icons.arrow_html") })
+
+%section#participants
+  %h3= t("missions.show.participants")
+
+  %ul
+    - @participants.each do |participant|
+      %li
+        = participant.user.name
+        = link_to(t("icons.x_html"), mission_participant_path(@mission, participant), { method: :delete })
+
+  = link_to(new_mission_participant_path(@mission), { title: t("missions.show.add-participant") }) do
+    = t("missions.show.add-participant_html", { arrow: t("icons.arrow_html") })

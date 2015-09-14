@@ -15,6 +15,7 @@ class MissionsController < ApplicationController
 
   def show
     authorize!(:read, @mission)
+    @participants = @mission.participants
   end
 
   def new

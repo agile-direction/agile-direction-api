@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources(:users)
+  resources(:users, { only: [:index, :show] })
 
   get("/glossary", { to: "home#glossary" })
   get("/styleguide", { to: "home#styleguide" })

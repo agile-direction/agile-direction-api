@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20150830044919) do
   create_table "participants", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid   "joinable_id",   null: false
     t.string "joinable_type", null: false
-    t.uuid   "user_id"
+    t.uuid   "user_id",       null: false
   end
 
   create_table "requirements", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|

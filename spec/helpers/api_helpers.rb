@@ -4,6 +4,10 @@ module APIHelpers
     @request.env["CONTENT_TYPE"] = "application/json"
   end
 
+  def json_response
+    JSON.parse(response.body)
+  end
+
   def login!(user = nil)
     original_session = session[auth_key]
     session[auth_key] = [user.id, user.test] if user

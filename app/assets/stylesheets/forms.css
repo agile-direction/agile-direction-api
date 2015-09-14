@@ -45,3 +45,11 @@ input[type=submit] {
 form:invalid input[type=submit] {
   opacity: 0.2;
 }
+
+ul.ui-autocomplete {
+  z-index: 9;
+}
+
+ul.ui-autocomplete li {
+  cursor: pointer;
+}

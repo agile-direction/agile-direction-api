@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "missions/show", type: :view do
   before(:each) do
+    assign(:participants, [])
   end
 
   it "renders attributes" do

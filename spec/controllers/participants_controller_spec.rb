@@ -42,19 +42,34 @@ RSpec.describe(ParticipantsController, { type: :controller }) do
   describe "POST #create" do
     it "add user to mission" do
       expect {
-        post(:create, { mission_id: @mission.id, user_id: @geoff.id })
+        post(:create, {
+          mission_id: @mission.id,
+          participant: {
+            user_id: @geoff.id
+          }
+        })
       }.to change { Participant.count }.by(1)
     end
 
     it "redirects do mission path" do
-      post(:create, { mission_id: @mission.id, user_id: @geoff.id })
+      post(:create, {
+        mission_id: @mission.id,
+        participant: {
+          user_id: @geoff.id
+        }
+      })
       expect(response).to redirect_to(mission_path(@mission))
     end
 
     it "allows anyone to create participant for unowned missions" do
       login! do
         expect {
-          post(:create, { mission_id: @mission.id, user_id: @geoff.id })
+          post(:create, {
+            mission_id: @mission.id,
+            participant: {
+              user_id: @geoff.id
+            }
+          })
         }.to change { Participant.count }.by(1)
       end
     end
@@ -63,7 +78,12 @@ RSpec.describe(ParticipantsController, { type: :controller }) do
       @mission.users << @geoff
       login!(@geoff) do
         expect {
-          post(:create, { mission_id: @mission.id, user_id: @ashish.id })
+          post(:create, {
+            mission_id: @mission.id,
+            participant: {
+              user_id: @ashish.id
+            }
+          })
         }.to change { Participant.count }.by(1)
       end
     end
@@ -72,7 +92,12 @@ RSpec.describe(ParticipantsController, { type: :controller }) do
       @mission.users << @geoff
       login! do
         expect {
-          post(:create, { mission_id: @mission.id, user_id: @ashish.id })
+          post(:create, {
+            mission_id: @mission.id,
+            participant: {
+              user_id: @ashish.id
+            }
+          })
         }.to change { Participant.count }.by(0)
       end
       expect(response).to redirect_to(auth_path)
@@ -82,7 +107,12 @@ RSpec.describe(ParticipantsController, { type: :controller }) do
       @mission.users << @geoff
       login!(@ashish) do
         expect {
-          post(:create, { mission_id: @mission.id, user_id: @ashish.id })
+          post(:create, {
+            mission_id: @mission.id,
+            participant: {
+              user_id: @ashish.id
+            }
+          })
         }.to change { Participant.count }.by(0)
       end
       expect(response.status).to eq(403)

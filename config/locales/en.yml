@@ -3,12 +3,14 @@ en:
     arrow_html: "&#x029BE;"
     class_icon_html: ""
     handle_html: "&vellip;"
+    x_html: "&#10683;"
 
   nav:
     browse: Browse
     authenticate: Auth
     log-out: Log Out
     my-account: My Account
+    logo_html: "%{icon}kd"
 
   actions:
     delete: Delete
@@ -40,6 +42,9 @@ en:
       add-requirement_html: "%{arrow} add requirement"
       add-requirement: Add Requirement
       deliverable_html: "%{name} - %{estimate} days"
+      participants: Participants
+      add-participant: Add Participant
+      add-participant_html: "%{arrow} add participant"
 
   deliverables:
     new:
@@ -135,6 +140,11 @@ en:
       try-again: try again?
       message_html: Sorry, we can't log you in, would you like to %{link}
 
+  participants:
+    new:
+      title: "Add User to %{mission_name}"
+      user_email: User Email
+      directions: Search and then select the user.
 
   activerecord:
     attributes:

@@ -25,7 +25,7 @@ When(/^I update a mission/) do
   click_button("Save")
 end
 
-When(/^I have missions/) do
+When(/^I have missions$/) do
   @missions = rand(1..rand(1..3)).times.collect do
     mission = new_mission
     mission.save!
@@ -40,9 +40,17 @@ Then(/^I should see missions/) do
   end
 end
 
-When(/^I view a mission$/) do
-  @mission = new_mission
+Given(/^I have a mission$/) do
+  @mission = Generator.mission!({ public: true })
   @mission.save!
+end
+
+When(/^I view the mission/) do
+  visit "/missions/#{@mission.id}"
+end
+
+When(/^I view a mission$/) do
+  @mission = Generator.mission!
   visit "/missions/#{@mission.id}"
 end
 

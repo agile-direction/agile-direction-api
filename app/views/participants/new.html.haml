@@ -1,7 +1,9 @@
-= form_for(@participant) do |form|
-  .fill-me-in
-    = form.label(:participant)
-    = form.text_field(:participant, { autofocus: true })
+%h1= t(".title", { mission_name: @mission.name })
+%p= t(".directions")
 
-  = form.hidden_field(:user_id)
-  = form.submit(t("actions.save"))
+= form_for(@participant, { url: mission_participants_path(@mission, @participant) }) do |form|
+  .fill-me-in
+    = form.label(:user, t(".user_email"))
+    = form.text_field(:user, { autofocus: true, id: "add-user" })
+
+  = form.hidden_field(:user_id, { id: "add-user-id" })
