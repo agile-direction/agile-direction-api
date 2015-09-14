@@ -16,6 +16,10 @@
     = f.text_field(:description)
 
   .fill-me-in
+    = f.label(:status)
+    = f.select(:status, options_for_select(Requirement.statuses, selected: Requirement.statuses[@requirement.status] ))
+
+  .fill-me-in
     - # i18n-tasks-use t('activerecord.attributes.requirement.estimate')
     = f.label(:estimate)
     = f.number_field :estimate, :step => 1

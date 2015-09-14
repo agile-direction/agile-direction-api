@@ -134,9 +134,11 @@ RSpec.describe(RequirementsController, { type: :controller }) do
         name: Faker::Name.name,
         ordering: rand(10),
         description: Faker::Lorem.sentence,
-        estimate: rand(10)
+        estimate: rand(10),
+        status: rand(2)
       }
       put(:update, @route_params.merge({ id: @requirement.id, requirement: new_data }))
+      new_data["status"] = new_data["status"].to_i
       expect(Requirement.order({ created_at: :desc }).first.attributes).to include(new_data.stringify_keys)
     end
 
@@ -227,32 +229,5 @@ RSpec.describe(RequirementsController, { type: :controller }) do
       end
       expect(response.status).to eq(403)
     end
-  end
-
-  describe "Put #start" do
-    xit "starts the requested requirement" do
-      expect(requirement.status).to eq("created")
-      put :start, { mission_id: @mission.id, deliverable_id: @deliverable.id,:id => requirement.to_param}, valid_session
-      expect(requirement.reload.status).to eq("started")
-    end
-
-    it "allows anyone for unowned missions"
-    it "allows participants of owned missions"
-    it "does not allow anonymous users of owned missions"
-    it "does not allow non-participants of owned missions"
-  end
-
-  describe "Put #finish" do
-    xit "completes the requested requirement" do
-      requirement = Requirement.create! valid_attributes.merge!( status: "started")
-      expect(requirement.status).to eq("started")
-      put :finish,{mission_id: @mission.id, deliverable_id: @deliverable.id,:id => requirement.to_param}, valid_session
-      expect(requirement.reload.status).to eq("completed")
-    end
-
-    it "allows anyone for unowned missions"
-    it "allows participants of owned missions"
-    it "does not allow anonymous users of owned missions"
-    it "does not allow non-participants of owned missions"
   end
 end

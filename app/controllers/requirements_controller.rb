@@ -50,7 +50,7 @@ class RequirementsController < ApplicationController
       if @requirement.update(requirement_params)
         format.html do
           redirect_to(mission_path(@requirement.mission), {
-            notice: "Requirement was successfully created."
+            notice: "Requirement was successfully updated."
           })
         end
         format.json do
@@ -102,6 +102,8 @@ class RequirementsController < ApplicationController
   end
 
   def requirement_params
-    params.require(:requirement).permit(%w(name description ordering estimate))
+    string_params = params.require(:requirement).permit(%w(name description ordering estimate status))
+    string_params["status"] = string_params["status"].to_i
+    string_params
   end
 end
