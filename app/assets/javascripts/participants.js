@@ -1,5 +1,6 @@
 (function() {
   var ready = function() {
+    if ($("#add-user").length == 0) return;
 
     $("#add-user").autocomplete({
       source: "/users",

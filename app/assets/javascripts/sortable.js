@@ -50,7 +50,7 @@
     request(url, data);
   };
 
-  $(document).ready(function() {
+  var ready = function() {
     $('ul#deliverables').sortable({
       handle: '.deliverable_handle',
       axis: 'y',
@@ -73,5 +73,8 @@
         updateOrderOfRequirements(event.target);
       }
     });
-  });
+  };
+
+  $(document).ready(ready);
+  $(document).on('page:load', ready);
 })();

@@ -6,7 +6,7 @@ RSpec.describe UsersController, type: :controller do
   describe "GET #index" do
     before(:all) do
       @geoff = Generator.user!({ name: "geoff" })
-      @ashish = Generator.user!({ name: "ashish" })
+      @ashish = Generator.user!({ name: "ashish aBcDEfg" })
     end
 
     before(:each) do
@@ -22,12 +22,12 @@ RSpec.describe UsersController, type: :controller do
     end
 
     it "returns users for term" do
-      get(:index, { term: "ash" })
+      get(:index, { term: "abcdefg" })
       expect(json_response.size).to eq(1)
     end
 
     it "returns users for term despite case" do
-      get(:index, { term: "AsH" })
+      get(:index, { term: "ABcdefG" })
       expect(json_response.size).to eq(1)
     end
 

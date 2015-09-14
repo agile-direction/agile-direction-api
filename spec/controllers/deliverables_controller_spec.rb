@@ -1,8 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe DeliverablesController, type: :controller do
-  before(:each) do
-    @mission = Mission.create!({ name: Faker::Name.name })
+  include APIHelpers
+
+  before(:all) do
+    @mission = Generator.mission!
+    @deliverable = Generator.deliverable!({ mission: @mission })
+    @participant = Generator.user!
+    @non_participant = Generator.user!
   end
 
   let(:valid_attributes) {
@@ -16,141 +21,275 @@ RSpec.describe DeliverablesController, type: :controller do
   let(:valid_session) { {} }
 
   describe "GET #new" do
-    it "assigns a new deliverable as @deliverable" do
-      get(:new, { mission_id: @mission.id }, valid_session)
+    it "allows anyone for unowned missions" do
+      get(:new, { mission_id: @mission.id })
       expect(assigns(:deliverable)).to be_a_new(Deliverable)
+    end
+
+    it "allows participants of owned missions" do
+      @mission.users << @participant
+      login!(@participant) do
+        get(:new, { mission_id: @mission.id })
+        expect(response).to be_successful
+      end
+    end
+
+    it "does not allow anonymous users of owned missions" do
+      @mission.users << @participant
+      login! do
+        get(:new, { mission_id: @mission.id })
+        expect(response).to redirect_to(auth_path)
+      end
+    end
+
+    it "does not allow non-participants of owned missions" do
+      @mission.users << @participant
+      login!(@non_participant) do
+        get(:new, { mission_id: @mission.id })
+        expect(response.status).to eq(403)
+      end
     end
   end
 
   describe "GET #edit" do
     it "assigns the requested deliverable as @deliverable" do
-      deliverable = Deliverable.create!(valid_attributes)
-      get(:edit, { mission_id: @mission.id, id: deliverable.to_param }, valid_session)
-      expect(assigns(:deliverable)).to eq(deliverable)
+      get(:edit, { mission_id: @mission.id, id: @deliverable.to_param })
+      expect(assigns(:deliverable)).to eq(@deliverable)
+    end
+
+    it "allows anyone for unowned missions" do
+      get(:edit, { mission_id: @mission.id, id: @deliverable.to_param })
+      expect(response).to be_ok
+    end
+
+    it "allows participants of owned missions" do
+      @mission.users << @participant
+      login!(@participant) do
+        get(:edit, { mission_id: @mission.id, id: @deliverable.to_param })
+        expect(response).to be_ok
+      end
+    end
+
+    it "does not allow anonymous users of owned missions" do
+      @mission.users << @participant
+      login! do
+        get(:edit, { mission_id: @mission.id, id: @deliverable.to_param })
+        expect(response).to redirect_to(auth_path)
+      end
+    end
+
+    it "does not allow non-participants of owned missions" do
+      @mission.users << @participant
+      login!(@non_participant) do
+        get(:edit, { mission_id: @mission.id, id: @deliverable.to_param })
+        expect(response.status).to eq(403)
+      end
     end
   end
 
   describe "POST #create" do
-    context "with valid params" do
-      it "creates a new Deliverable for mission" do
-        expect {
-          post(:create, { mission_id: @mission.id, deliverable: valid_attributes }, valid_session)
-        }.to change(Deliverable, :count).by(1)
-      end
-
-      it "redirects back to mission" do
-        post(:create, { mission_id: @mission.id, deliverable: valid_attributes }, valid_session)
-        expect(response).to redirect_to(mission_path(@mission))
-      end
-
+    it "creates a new Deliverable for mission" do
+      expect {
+        post(:create, {
+          mission_id: @mission.id,
+          deliverable: Generator.deliverable.attributes
+        })
+      }.to change(Deliverable, :count).by(1)
     end
 
-    context "with invalid params" do
-      it "assigns a newly created but unsaved deliverable as @deliverable" do
-        post(:create, { mission_id: @mission.id, deliverable: invalid_attributes }, valid_session)
-        expect(assigns(:deliverable)).to be_a_new(Deliverable)
-      end
+    it "redirects back to mission" do
+      post(:create, { mission_id: @mission.id, deliverable: Generator.deliverable.attributes })
+      expect(response).to redirect_to(mission_path(@mission))
+    end
 
-      it "re-renders the 'new' template" do
-        post(:create, { mission_id: @mission.id, deliverable: invalid_attributes }, valid_session)
-        expect(response).to render_template("new")
+    it "re-renders the 'new' template on error" do
+      post(:create, { mission_id: @mission.id, deliverable: { name: nil } })
+      expect(assigns(:deliverable)).to be_a_new(Deliverable)
+      expect(response).to render_template("new")
+    end
+
+    it "allows anyone for unowned missions" do
+      expect {
+        post(:create, { mission_id: @mission.id, deliverable: Generator.deliverable.attributes })
+      }.to change { Deliverable.count }.by(1)
+    end
+
+    it "allows participants of owned missions" do
+      @mission.users << @participant
+      login!(@participant) do
+        expect {
+          post(:create, { mission_id: @mission.id, deliverable: Generator.deliverable.attributes })
+        }.to change { Deliverable.count }.by(1)
       end
+    end
+
+    it "does not allow anonymous users of owned missions" do
+      @mission.users << @participant
+      login! do
+        expect {
+          post(:create, { mission_id: @mission.id, deliverable: Generator.deliverable.attributes })
+        }.to change { Deliverable.count }.by(0)
+      end
+      expect(response).to redirect_to(auth_path)
+    end
+
+    it "does not allow non-participants of owned missions" do
+      @mission.users << @participant
+      login!(@non_participant) do
+        expect {
+          post(:create, { mission_id: @mission.id, deliverable: Generator.deliverable.attributes })
+        }.to change { Deliverable.count }.by(0)
+      end
+      expect(response.status).to eq(403)
     end
   end
 
   describe "PUT #update" do
-    context "with valid params" do
-      let(:new_attributes) {
-        @new_name = Faker::Name.name
-        { name: @new_name }
+    it "updates the requested deliverable" do
+      new_data = {
+        name: Faker::Name.name,
+        value: Faker::Lorem.sentence
       }
 
-      it "updates the requested deliverable" do
-        deliverable = Deliverable.create!(valid_attributes)
-        put(:update, {
-          mission_id: @mission.id,
-          id: deliverable.to_param,
-          deliverable: new_attributes
-        }, valid_session)
+      put(:update, {
+        mission_id: @mission.id,
+        id: @deliverable.to_param,
+        deliverable: new_data
+      }, valid_session)
 
-        deliverable.reload
-        expect(deliverable.name).to eq(@new_name)
-      end
+      expect(@deliverable.reload.attributes).to include(new_data.stringify_keys)
+    end
 
+    it "redirects to the deliverable" do
+      put(:update, {
+        mission_id: @mission.id,
+        id: @deliverable.to_param,
+        deliverable: {
+          name: Faker::Name.name
+        }
+      })
+      expect(response).to redirect_to(@deliverable.mission)
+    end
 
-      it "redirects to the deliverable" do
-        deliverable = Deliverable.create!(valid_attributes)
-        put(:update, {
-          mission_id: @mission.id,
-          id: deliverable.to_param,
-          deliverable: new_attributes
-        }, valid_session)
-        expect(response).to redirect_to(deliverable.mission)
+    it "re-renders the 'edit' template on error" do
+      put(:update, {
+        mission_id: @mission.id,
+        id: @deliverable.to_param,
+        deliverable: {
+          name: nil
+        }
+      })
+      expect(assigns(:deliverable)).to eq(@deliverable)
+      expect(response).to render_template("edit")
+    end
+
+    it "allows anyone for unowned missions" do
+      new_data = { name: Faker::Name.name }
+      put(:update, { mission_id: @mission.id, id: @deliverable.to_param, deliverable: new_data })
+      expect(@deliverable.reload.attributes).to include(new_data.stringify_keys)
+    end
+
+    it "allows participants of owned missions" do
+      @mission.users << @participant
+      login!(@participant) do
+        new_data = { name: Faker::Name.name }
+        put(:update, { mission_id: @mission.id, id: @deliverable.to_param, deliverable: new_data })
+        expect(@deliverable.reload.attributes).to include(new_data.stringify_keys)
       end
     end
 
-    context "with invalid params" do
-      it "assigns the deliverable as @deliverable" do
-        deliverable = Deliverable.create! valid_attributes
-        put(:update, {
-          mission_id: @mission.id,
-          id: deliverable.to_param,
-          deliverable: invalid_attributes
-        }, valid_session)
-
-        expect(assigns(:deliverable)).to eq(deliverable)
+    it "does not allow anonymous users of owned missions" do
+      @mission.users << @participant
+      login! do
+        new_data = { name: Faker::Name.name }
+        put(:update, { mission_id: @mission.id, id: @deliverable.to_param, deliverable: new_data })
+        expect(@deliverable.reload.attributes).to_not include(new_data.stringify_keys)
       end
+      expect(response).to redirect_to(auth_path)
+    end
 
-      it "re-renders the 'edit' template" do
-        deliverable = Deliverable.create! valid_attributes
-        put(:update, {
-          mission_id: @mission.id,
-          id: deliverable.to_param,
-          deliverable: invalid_attributes
-        }, valid_session)
-        expect(response).to render_template("edit")
+    it "does not allow non-participants of owned missions" do
+      @mission.users << @participant
+      login!(@non_participant) do
+        new_data = { name: Faker::Name.name }
+        put(:update, { mission_id: @mission.id, id: @deliverable.to_param, deliverable: new_data })
+        expect(@deliverable.reload.attributes).to_not include(new_data.stringify_keys)
       end
+      expect(response.status).to eq(403)
     end
   end
 
   describe "DELETE #destroy" do
     it "destroys the requested deliverable" do
-      deliverable = Deliverable.create!(valid_attributes)
-
       expect {
-        delete(:destroy, { mission_id: @mission.id, id: deliverable.to_param }, valid_session)
+        delete(:destroy, { mission_id: @mission.id, id: @deliverable.to_param })
       }.to change(Deliverable, :count).by(-1)
     end
 
     it "redirects to the deliverables list" do
-      deliverable = Deliverable.create! valid_attributes
-      delete(:destroy, { mission_id: @mission.id, id: deliverable.to_param }, valid_session)
-      expect(response).to redirect_to(mission_path(deliverable.mission))
+      delete(:destroy, { mission_id: @mission.id, id: @deliverable.to_param }, valid_session)
+      expect(response).to redirect_to(mission_path(@deliverable.mission))
+    end
+
+    it "allows anyone for unowned missions" do
+      expect {
+        delete(:destroy, { mission_id: @mission.id, id: @deliverable.to_param })
+      }.to change(Deliverable, :count).by(-1)
+    end
+
+    it "allows participants of owned missions" do
+      @mission.users << @participant
+      login!(@participant) do
+        expect {
+          delete(:destroy, { mission_id: @mission.id, id: @deliverable.to_param })
+        }.to change(Deliverable, :count).by(-1)
+      end
+    end
+
+    it "does not allow anonymous users of owned missions" do
+      @mission.users << @participant
+      login! do
+        expect {
+          delete(:destroy, { mission_id: @mission.id, id: @deliverable.to_param })
+        }.to change(Deliverable, :count).by(0)
+      end
+      expect(response).to redirect_to(auth_path)
+    end
+
+    it "does not allow non-participants of owned missions" do
+      @mission.users << @participant
+      login!(@non_participant) do
+        expect {
+          delete(:destroy, { mission_id: @mission.id, id: @deliverable.to_param })
+        }.to change(Deliverable, :count).by(0)
+      end
+      expect(response.status).to eq(403)
     end
   end
 
   describe "PUT order_requirements" do
+    before(:each) do
+      add_json_headers!
+    end
+
     it "updates the order of the requirements" do
-      deliverable = Deliverable.create!(valid_attributes)
       first_requirement, second_requirement = 2.times.collect do |i|
         Requirement.create!({
-          deliverable: deliverable,
+          deliverable: @deliverable,
           name: Faker::Name.name,
           ordering: i
         })
       end
 
-      @request.env["HTTP_ACCEPT"] = "application/json"
-      @request.env["CONTENT_TYPE"] = "application/json"
       put(:order_requirements, {
         mission_id: @mission.id,
-        id: deliverable.id,
+        id: @deliverable.to_param,
         requirements: [{
           id: second_requirement.id
         }, {
           id: first_requirement.id
         }]
-      }, valid_session)
+      })
 
       expect(response).to be_successful
       expect(first_requirement.reload.ordering).to eq(1)
@@ -158,15 +297,12 @@ RSpec.describe DeliverablesController, type: :controller do
     end
 
     it "will ensure requirement is now part of deliverable" do
-      original_deliverable = Deliverable.create!(valid_attributes)
-      new_deliverable = Deliverable.create!(valid_attributes)
+      new_deliverable = Generator.deliverable!
       requirement = Requirement.create!({
-        deliverable: original_deliverable,
+        deliverable: @deliverable,
         name: Faker::Name.name
       })
 
-      @request.env["HTTP_ACCEPT"] = "application/json"
-      @request.env["CONTENT_TYPE"] = "application/json"
       put(:order_requirements, {
         mission_id: @mission.id,
         id: new_deliverable.id,
@@ -177,6 +313,55 @@ RSpec.describe DeliverablesController, type: :controller do
 
       expect(response).to be_successful
       expect(requirement.reload.deliverable).to eq(new_deliverable)
+    end
+
+    it "allows anyone for unowned missions" do
+      requirement = Generator.requirement!
+      put(:order_requirements, {
+        mission_id: @mission.id,
+        id: @deliverable.to_param,
+        requirements: [{ id: requirement.id }]
+      })
+      expect(response).to be_successful
+    end
+
+    it "allows participants of owned missions" do
+      @mission.users << @participant
+      login!(@participant) do
+        requirement = Generator.requirement!
+        put(:order_requirements, {
+          mission_id: @mission.id,
+          id: @deliverable.to_param,
+          requirements: [{ id: requirement.id }]
+        })
+      end
+      expect(response).to be_successful
+    end
+
+    it "does not allow anonymous users of owned missions" do
+      @mission.users << @participant
+      login! do
+        requirement = Generator.requirement!
+        put(:order_requirements, {
+          mission_id: @mission.id,
+          id: @deliverable.to_param,
+          requirements: [{ id: requirement.id }]
+        })
+      end
+      expect(response).to redirect_to(auth_path)
+    end
+
+    it "does not allow non-participants of owned missions" do
+      @mission.users << @participant
+      login!(@non_participant) do
+        requirement = Generator.requirement!
+        put(:order_requirements, {
+          mission_id: @mission.id,
+          id: @deliverable.to_param,
+          requirements: [{ id: requirement.id }]
+        })
+      end
+      expect(response.status).to eq(403)
     end
   end
 end

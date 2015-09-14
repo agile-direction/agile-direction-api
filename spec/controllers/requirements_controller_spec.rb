@@ -138,8 +138,8 @@ RSpec.describe(RequirementsController, { type: :controller }) do
         status: rand(2)
       }
       put(:update, @route_params.merge({ id: @requirement.id, requirement: new_data }))
-      new_data["status"] = new_data["status"].to_i
-      expect(Requirement.order({ created_at: :desc }).first.attributes).to include(new_data.stringify_keys)
+      new_data[:status] = new_data[:status].to_i
+      expect(@requirement.reload.attributes).to include(new_data.stringify_keys)
     end
 
     it "redirects to the mission" do

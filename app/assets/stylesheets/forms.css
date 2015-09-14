@@ -66,3 +66,7 @@ ul.ui-autocomplete {
 ul.ui-autocomplete li {
   cursor: pointer;
 }
+
+.ui-helper-hidden-accessible {
+  position: absolute; left:-999em;
+}
