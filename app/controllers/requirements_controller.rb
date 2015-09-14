@@ -1,35 +1,40 @@
 class RequirementsController < ApplicationController
-  before_action :set_requirement, only: [:show, :edit, :update, :destroy, :start, :finish]
-  before_action :set_deliverable
+  before_action(:set_requirement, {
+    except: [:index]
+  })
 
-  # GET /requirements
-  # GET /requirements.json
+  before_action({ only: [:new, :show, :create, :edit, :update, :destroy] }) do
+    require_user! unless @requirement.mission.users.none?
+  end
+
   def index
     @requirements = Requirement.all
   end
 
-  # GET /requirements/1
-  # GET /requirements/1.json
   def show
+    authorize!(:read, @requirement)
   end
 
-  # GET /requirements/new
   def new
-    @requirement = Requirement.new
+    authorize!(:create, @requirement)
   end
 
-  # GET /requirements/1/edit
   def edit
+    authorize!(:write, @requirement)
   end
 
-  # POST /requirements
-  # POST /requirements.json
   def create
+    @deliverable = find_deliverable
     @requirement = @deliverable.requirements.new(requirement_params)
+    authorize!(:create, @requirement)
 
     respond_to do |format|
       if @requirement.save
-        format.html { redirect_to mission_path(@deliverable.mission), notice: "Requirement was successfully created." }
+        format.html do
+          redirect_to(mission_path(@deliverable.mission), {
+            notice: "Requirement was successfully created."
+          })
+        end
         format.json { render :show, status: :created, location: @requirement }
       else
         format.html { render :new }
@@ -38,13 +43,22 @@ class RequirementsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /requirements/1
-  # PATCH/PUT /requirements/1.json
   def update
+    authorize!(:write, @requirement)
+
     respond_to do |format|
       if @requirement.update(requirement_params)
-        format.html { redirect_to mission_path(@deliverable.mission), notice: "Requirement was successfully created." }
-        format.json { render :show, status: :ok, location: @requirement }
+        format.html do
+          redirect_to(mission_path(@requirement.mission), {
+            notice: "Requirement was successfully updated."
+          })
+        end
+        format.json do
+          render(:show, {
+            status: :ok,
+            location: @requirement
+          })
+        end
       else
         format.html { render :edit }
         format.json { render json: @requirement.errors, status: :unprocessable_entity }
@@ -52,47 +66,44 @@ class RequirementsController < ApplicationController
     end
   end
 
-  # DELETE /requirements/1
-  # DELETE /requirements/1.json
   def destroy
+    authorize!(:destroy, @requirement)
+
     @requirement.destroy
+
     respond_to do |format|
-      format.html { redirect_to mission_deliverable_path(id: @deliverable), notice: "Requirement was successfully destroyed." }
+      format.html do
+        redirect_to(mission_path(@requirement.mission), {
+          notice: "Requirement was successfully destroyed."
+        })
+      end
       format.json { head :no_content }
-    end
-  end
-
-  def start
-    respond_to do |format|
-      if @requirement.start!
-        format.html { redirect_to mission_path(@deliverable.mission), notice: "Requirement was successfully started." }
-        format.json { render :show, status: :created, location: @requirement }
-      end
-    end
-  end
-
-  def finish
-    respond_to do |format|
-      if @requirement.finish!
-        format.html { redirect_to mission_path(@deliverable.mission), notice: "Requirement was successfully completed." }
-        format.json { render :show, status: :created, location: @requirement }
-      end
     end
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
+  def find_deliverable
+    Deliverable.where({ id: params[:deliverable_id] }).includes(:mission).first
+  end
+
   def set_requirement
-    @requirement = Requirement.find(params[:id])
+    if params[:id]
+      @requirement = Requirement.where({
+        id: params[:id]
+      }).includes(:deliverable, :mission).first
+    else
+      deliverable = Deliverable.where({ id: params[:deliverable_id] }).includes(:mission).first
+      @requirement = Requirement.new({
+        deliverable: deliverable,
+        mission: deliverable.mission
+      })
+    end
   end
 
-  def set_deliverable
-    @deliverable = Deliverable.find(params[:deliverable_id])
-  end
-
-  # Never trust parameters from the scary internet, only allow the white list through.
   def requirement_params
-    params.require(:requirement).permit(%w(name description ordering estimate))
+    string_params = params.require(:requirement).permit(%w(name description ordering estimate status))
+    string_params["status"] = string_params["status"].to_i
+    string_params
   end
 end

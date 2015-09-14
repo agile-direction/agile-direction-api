@@ -1,4 +1,4 @@
-- url = @requirement.new_record? ? mission_deliverable_requirements_path(@deliverable.mission, @deliverable, { action: :create }) : mission_deliverable_requirement_path(@deliverable.mission, @deliverable, @requirement)
+- url = @requirement.new_record? ? mission_deliverable_requirements_path(@requirement.mission, @requirement.deliverable, { action: :create }) : mission_deliverable_requirement_path(@requirement.mission, @requirement.deliverable, @requirement)
 = form_for(@requirement, { url: url }) do |f|
   - if @requirement.errors.any?
     #error_explanation
@@ -14,6 +14,10 @@
   .fill-me-in
     = f.label(:description)
     = f.text_field(:description)
+
+  .fill-me-in
+    = f.label(:status)
+    = f.select(:status, options_for_select(Requirement.statuses, selected: Requirement.statuses[@requirement.status] ))
 
   .fill-me-in
     - # i18n-tasks-use t('activerecord.attributes.requirement.estimate')

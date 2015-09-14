@@ -32,9 +32,11 @@
                 %span.requirement_handle= t("icons.handle_html")
                 = link_to(t("deliverables.show.requirement_html", { name: requirement.name, estimate: requirement.estimate}),edit_mission_deliverable_requirement_path(@mission,deliverable, requirement))
                 - if requirement.created?
-                  = link_to(t("icons.class_icon_html"), start_mission_deliverable_requirement_path(@mission, deliverable, requirement), { method: :put, title: "Start" , class: "fa fa-play-circle"})
+                  - path = mission_deliverable_requirement_path(@mission, deliverable, requirement, { requirement: { status: Requirement::STATUSES[:started] } })
+                  = link_to(t("icons.class_icon_html"), path, { method: :put, title: "Start" , class: "fa fa-play-circle"})
                 - elsif requirement.started?
-                  = link_to(t("icons.class_icon_html"), finish_mission_deliverable_requirement_path(@mission, deliverable, requirement), method: :put, title: "Finish", class: "fa fa-dot-circle-o" )
+                  - path = mission_deliverable_requirement_path(@mission, deliverable, requirement, { requirement: { status: Requirement::STATUSES[:completed] } })
+                  = link_to(t("icons.class_icon_html"), path, method: :put, title: "Finish", class: "fa fa-dot-circle-o" )
                 - else
                   %i.fa.fa-check
             = link_to(new_mission_deliverable_requirement_path(@mission, deliverable), { title: t("missions.show.add-requirement") }) do
@@ -44,3 +46,15 @@
 
   = link_to(new_mission_deliverable_path(@mission), { title: t("missions.show.add-deliverable") }) do
     = t("missions.show.add-deliverable_html", { arrow: t("icons.arrow_html") })
+
+%section#participants
+  %h3= t("missions.show.participants")
+
+  %ul
+    - @participants.each do |participant|
+      %li
+        = participant.user.name
+        = link_to(t("icons.x_html"), mission_participant_path(@mission, participant), { method: :delete })
+
+  = link_to(new_mission_participant_path(@mission), { title: t("missions.show.add-participant") }) do
+    = t("missions.show.add-participant_html", { arrow: t("icons.arrow_html") })

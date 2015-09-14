@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150829172902) do
+ActiveRecord::Schema.define(version: 20150830044919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,9 +31,16 @@ ActiveRecord::Schema.define(version: 20150829172902) do
 
   create_table "missions", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "description"
-    t.string   "name",        null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "name",                       null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "public",      default: true
+  end
+
+  create_table "participants", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid   "joinable_id",   null: false
+    t.string "joinable_type", null: false
+    t.uuid   "user_id",       null: false
   end
 
   create_table "requirements", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
@@ -63,5 +70,6 @@ ActiveRecord::Schema.define(version: 20150829172902) do
   end
 
   add_foreign_key "deliverables", "missions"
+  add_foreign_key "participants", "users"
   add_foreign_key "requirements", "deliverables"
 end

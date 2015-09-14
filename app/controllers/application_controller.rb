@@ -6,11 +6,20 @@ class ApplicationController < ActionController::Base
   helper_method(:current_user)
 
   rescue_from(CanCan::AccessDenied) do
-    render("errors/unauthorized", { status: 403 })
+    respond_to do |format|
+      format.html do
+        render("errors/unauthorized", { status: 403 })
+      end
+      format.json do
+        head(403)
+      end
+    end
   end
 
   def require_user!
-    redirect_to(auth_path) unless current_user
+    return true if current_user
+    redirect_to(auth_path, { status: 302 })
+    false
   end
 
   def current_user

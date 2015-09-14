@@ -1,0 +1,9 @@
+%h1= t(".title", { mission_name: @mission.name })
+%p= t(".directions")
+
+= form_for(@participant, { url: mission_participants_path(@mission, @participant) }) do |form|
+  .fill-me-in
+    = form.label(:user, t(".user_email"))
+    = form.text_field(:user, { autofocus: true, id: "add-user" })
+
+  = form.hidden_field(:user_id, { id: "add-user-id" })

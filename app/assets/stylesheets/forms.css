@@ -20,7 +20,8 @@ input {
   width: 30%;
 }
 
-.fill-me-in input[type=text],input[type=number] {
+.fill-me-in input[type=text],
+.fill-me-in input[type=number] {
   width: 60%;
   position: absolute;
   padding: 0.5em 5%;
@@ -29,6 +30,18 @@ input {
   bottom: -0.2em;
   right: -0.2em;
   background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.fill-me-in select {
+  width: 60%;
+  position: absolute;
+  padding: 0.5em 5%;
+  top: -0.2em;
+  bottom: -0.2em;
+  right: -0.2em;
+  background-color: rgba(255, 255, 255, 0.1);
   border: none;
   color: rgba(255, 255, 255, 0.6);
 }
@@ -44,4 +57,16 @@ input[type=submit] {
 
 form:invalid input[type=submit] {
   opacity: 0.2;
+}
+
+ul.ui-autocomplete {
+  z-index: 9;
+}
+
+ul.ui-autocomplete li {
+  cursor: pointer;
+}
+
+.ui-helper-hidden-accessible {
+  position: absolute; left:-999em;
 }

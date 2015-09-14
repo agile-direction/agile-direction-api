@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "missions/show", type: :view do
   before(:each) do
+    assign(:participants, [])
   end
 
   it "renders attributes" do
@@ -19,14 +20,8 @@ RSpec.describe "missions/show", type: :view do
   end
 
   it "renders deliverables" do
-    @mission = assign(:mission, Mission.create!({
-      name: Faker::Name.name
-    }))
-
-    deliverable_name = Faker::Name.name
-    @mission.deliverables.create!({ name: deliverable_name })
-
+    @mission = assign(:mission, Generator.mission!)
     render
-    expect(rendered).to match(deliverable_name)
+    expect(rendered).to match(@mission.name)
   end
 end

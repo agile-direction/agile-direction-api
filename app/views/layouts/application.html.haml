@@ -25,7 +25,8 @@
     #page
       %nav
         %h1
-          = link_to(t("icons.arrow_html"), root_path)
+          - nav_logo = t("nav.logo_html", { icon: t("icons.arrow_html") })
+          = link_to(nav_logo, root_path)
 
         %ul
           %li= link_to(t("nav.browse"), missions_path)

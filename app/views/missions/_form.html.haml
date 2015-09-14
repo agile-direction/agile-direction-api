@@ -14,5 +14,9 @@
     = f.label(:description)
     = f.text_field(:description)
 
+  .fill-me-in
+    = f.check_box(:public, { checked: true })
+    = f.label(:public)
+
   .actions
     = f.submit 'Save'

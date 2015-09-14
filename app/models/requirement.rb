@@ -1,14 +1,22 @@
 class Requirement < ActiveRecord::Base
   include AASM
-  belongs_to :deliverable
-  validates :name, { presence: true }
-  validates :deliverable, { presence: true }
+
+  STATUSES = {
+    created: 0,
+    started: 1,
+    completed: 2
+  }
+  enum({ status: STATUSES })
+
+  belongs_to(:deliverable)
+  has_one(:mission, { through: :deliverable })
+
+  validates(:name, { presence: true })
+  validates(:deliverable, { presence: true })
 
   before_validation :set_defaults
 
-  enum status: [:created, :started, :completed]
-
-  aasm column: :status do
+  aasm({ column: :status }) do
     state :created, initial: true
     state :started
     state :completed

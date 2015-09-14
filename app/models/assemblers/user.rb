@@ -20,13 +20,11 @@ module Assemblers
         source_id: uid
       })
 
-      user.update_attributes({
-        name: name,
-        source_id: uid,
-        source: ::User::SOURCES.fetch(:twitter),
-        image_uri: image_uri,
-        location: location
-      })
+      user.name = name
+      user.source_id = uid
+      user.source = ::User::SOURCES.fetch(:twitter)
+      user.image_uri = image_uri
+      user.location = location
     end
 
     def save!

@@ -3,6 +3,7 @@ ENV["RACK_ENV"] = ENV["RAILS_ENV"] = "test"
 require "capybara/poltergeist"
 require "cucumber/rails"
 require "faker"
+require "spec/helpers/generator"
 require Rails.root.join("lib/builders")
 
 ActionController::Base.allow_rescue = false

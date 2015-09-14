@@ -4,6 +4,14 @@ class User < ActiveRecord::Base
   }.freeze
 
   enum({ source: SOURCES })
+
+  has_many(:participants)
+  has_many(:missions, {
+    through: :participants,
+    source: :joinable,
+    source_type: "Mission"
+  })
+
   validates(:name, { presence: true })
 
   def test
