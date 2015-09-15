@@ -10,16 +10,6 @@ RSpec.describe DeliverablesController, type: :controller do
     @non_participant = Generator.user!
   end
 
-  let(:valid_attributes) {
-    { name: Faker::Name.name, mission_id: @mission.id }
-  }
-
-  let(:invalid_attributes) {
-    { name: nil }
-  }
-
-  let(:valid_session) { {} }
-
   describe "GET #new" do
     it "allows anyone for unowned missions" do
       get(:new, { mission_id: @mission.id })
@@ -155,7 +145,7 @@ RSpec.describe DeliverablesController, type: :controller do
         mission_id: @mission.id,
         id: @deliverable.to_param,
         deliverable: new_data
-      }, valid_session)
+      })
 
       expect(@deliverable.reload.attributes).to include(new_data.stringify_keys)
     end
@@ -227,7 +217,7 @@ RSpec.describe DeliverablesController, type: :controller do
     end
 
     it "redirects to the deliverables list" do
-      delete(:destroy, { mission_id: @mission.id, id: @deliverable.to_param }, valid_session)
+      delete(:destroy, { mission_id: @mission.id, id: @deliverable.to_param })
       expect(response).to redirect_to(mission_path(@deliverable.mission))
     end
 
@@ -309,7 +299,7 @@ RSpec.describe DeliverablesController, type: :controller do
         requirements: [{
           id: requirement.id
         }]
-      }, valid_session)
+      })
 
       expect(response).to be_successful
       expect(requirement.reload.deliverable).to eq(new_deliverable)

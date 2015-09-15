@@ -11,10 +11,6 @@ class RequirementsController < ApplicationController
     @requirements = Requirement.all
   end
 
-  def show
-    authorize!(:read, @requirement)
-  end
-
   def new
     authorize!(:create, @requirement)
   end

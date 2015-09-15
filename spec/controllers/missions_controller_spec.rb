@@ -115,8 +115,15 @@ RSpec.describe(MissionsController, { type: :controller }) do
   end
 
   describe "GET #show" do
-    it "shows public missions to everyone" do
+    it "shows public missions without participants to everyone" do
       mission = Generator.mission!({ public: true })
+      get(:show, { id: mission.id })
+      expect(response).to be_ok
+    end
+
+    it "shows public missions with participants to everyone" do
+      mission = Generator.mission!({ public: true })
+      mission.users << Generator.user!
       get(:show, { id: mission.id })
       expect(response).to be_ok
     end
