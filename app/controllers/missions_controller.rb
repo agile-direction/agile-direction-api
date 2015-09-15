@@ -6,7 +6,7 @@ class MissionsController < ApplicationController
   })
 
   before_action({ only: [:show, :edit, :update] }) do
-    require_user! unless @mission.users.none?
+    require_user! unless (@mission.public? || @mission.users.none?)
   end
 
   def index
