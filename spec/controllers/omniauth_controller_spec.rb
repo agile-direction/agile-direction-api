@@ -53,6 +53,14 @@ RSpec.describe(OmniauthController, { type: :controller }) do
       expect(response).to redirect_to(user_path(controller.current_user))
     end
 
+    it "redirects to original page user was trying to see" do
+      mission = Generator.mission!
+      session[:path_requiring_authentication] = mission_path(mission)
+      set_auth_environment!({ uid: @uid })
+      post(:callback)
+      expect(response).to redirect_to(mission_path(mission))
+    end
+
     it "upserts user for twitter account" do
       set_auth_environment!({ uid: @uid })
 

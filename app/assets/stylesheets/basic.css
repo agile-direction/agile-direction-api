@@ -203,17 +203,25 @@ nav h1 a {
   border-bottom: 1px dashed rgba(255, 255, 255, 0.4);
 }
 
-#notice {
+.flash {
   position: fixed;
   padding: 1em;
-  background-color: rgba(255, 255, 255, 0.6);
   position: fixed;
   bottom: 0;
   right: 0;
   left: 0;
   margin: 0;
-  color: rgba(8, 1, 46, 1);
   z-index: 8;
+}
+
+.flash#notice {
+  background-color: rgba(255, 255, 255, 0.6);
+  color: rgba(8, 1, 46, 1);
+}
+
+.flash#alert {
+  background-color: rgba(105, 0, 0, 0.6);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .hud {

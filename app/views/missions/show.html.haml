@@ -1,6 +1,3 @@
-- if notice
-  %p#notice= notice
-
 - if !@mission.estimate.zero?
   .progress
     .progress-bar.progress-bar-success.progress-bar-striped.active{:role => "progressbar", :style => "width:#{@mission.progress["completed"]}%"}

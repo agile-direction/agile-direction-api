@@ -9,7 +9,8 @@ class OmniauthController < ApplicationController
 
   def callback
     self.current_user = Assemblers::User.glue!(user_params)
-    redirect_to(user_path(current_user))
+    redirect_path = (session[:path_requiring_authentication] || user_path(current_user))
+    redirect_to(redirect_path)
   end
 
   def failure

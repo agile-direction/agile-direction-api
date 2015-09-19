@@ -18,6 +18,8 @@ class ApplicationController < ActionController::Base
 
   def require_user!
     return true if current_user
+    flash[:alert] = t("flashes.must-login")
+    session[:path_requiring_authentication] = request.fullpath
     redirect_to(auth_path, { status: 302 })
     false
   end
