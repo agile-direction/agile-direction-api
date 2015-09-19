@@ -21,7 +21,7 @@ en:
     save: Save
 
   head:
-    default_title_html: "%{arrow} Keep Delivering"
+    default_title: "Keep Delivering"
 
   accessibility:
     skip-to-main-content: Skip to main content
