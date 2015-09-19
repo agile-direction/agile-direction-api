@@ -32,8 +32,8 @@ body {
 #page {
   position: relative;
   z-index: 2;
-  background-color: rgba(0, 100, 200, 1);
-  background-image: linear-gradient(0deg, transparent 0, rgba(0, 50, 100, 1) 100%);
+  background-image:
+    linear-gradient(to bottom, rgba(0, 100, 200, 0) 0, rgba(0, 100, 200, 1) 100%);
   padding: 2% 5%;
   margin: 1% 1%;
 }
@@ -182,6 +182,13 @@ nav h1 a {
   text-align: center;
 }
 
+.home.index #welcome-treatment #missions-happening {
+  width: 100%;
+  overflow: hidden;
+  display: block;
+  white-space: nowrap;
+}
+
 .home.index #welcome-treatment .logo {
   font-size: 3em;
   line-height: 1.4em;
@@ -253,6 +260,30 @@ section {
 #mission-count {
   text-align: center;
   padding: 2em 1em;
+  position: relative;
+  overflow: hidden;
+}
+
+#mission-count h2 {
+  font-size: 2em;
+}
+
+#mission-count-background {
+  font-size: 2em;
+  line-height: 1.2em;
+  color: rgba(255, 255, 255, 0.1);
+  z-index: 1;
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  left: -40px;
+  bottom: -40px;
+  text-align: center;
+}
+
+#mission-count-foreground {
+  position: relative;
+  z-index: 2;
 }
 
 #content {

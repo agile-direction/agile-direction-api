@@ -1,5 +1,6 @@
 class MissionsController < ApplicationController
   VALID_MISSION_PARAMS = %w(name description public)
+  PAGE_LIMIT = 10
 
   before_action(:set_mission, {
     only: [:show, :edit, :update, :destroy, :order_deliverables]
@@ -10,7 +11,27 @@ class MissionsController < ApplicationController
   end
 
   def index
-    @missions = Mission.where({ public: true })
+    @page = params[:page].to_i
+    @mission_count = Mission.count
+    @mission_per_page = PAGE_LIMIT
+    @missions = Mission
+      .where({ public: true })
+      .order({ updated_at: :desc })
+      .offset((@page * PAGE_LIMIT))
+      .limit(@mission_per_page)
+
+    respond_to do |format|
+      format.html do
+      end
+
+      format.json do
+        render({
+          json: {
+            missions: @missions
+          }
+        })
+      end
+    end
   end
 
   def show

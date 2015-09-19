@@ -26,6 +26,14 @@ RSpec.describe(MissionsController, { type: :controller }) do
       get(:index)
       expect(assigns(:missions)).to_not include(mission)
     end
+
+    it "supports json requests" do
+      mission = Generator.mission!
+      add_json_headers!
+      get(:index)
+      expect(response).to be_ok
+      expect(json_response["missions"].first["id"]).to eq(mission.id)
+    end
   end
 
   describe "POST #create" do

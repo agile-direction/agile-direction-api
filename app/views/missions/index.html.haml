@@ -1,7 +1,22 @@
-%h1 Listing missions
+%h1= t(".title")
+
+%p= link_to(t(".add-one_html", { icon: t("icons.arrow_html") }), new_mission_path)
 
 %ul
   - @missions.each do |mission|
-    %li= link_to(mission.name, mission_path(mission))
+    %li
+      = link_to(mission.name, mission_path(mission))
+      .subnote= mission.description
 
-= link_to 'New Mission', new_mission_path
+#pagination
+  - previous_page = (@page > 0)
+  - next_page = (@mission_count > ((@page + 1) * @mission_per_page))
+  - previous_link = link_to(t(".previous"), missions_path({ page: (@page - 1) }))
+  - next_link = link_to(t(".next"), missions_path({ page: (@page + 1) }))
+
+  - if (previous_page && next_page)
+    = t("pagination_html", { next_page_html: next_link, previous_page_html: previous_link })
+  - elsif next_page
+    = next_link
+  - elsif previous_page
+    = previous_link

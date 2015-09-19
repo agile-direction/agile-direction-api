@@ -1,4 +1,6 @@
 en:
+  pagination_html: "%{previous_page_html} | %{next_page_html}"
+
   flashes:
     must-login: Please login before you do that.
 
@@ -10,7 +12,7 @@ en:
 
   nav:
     browse: Browse
-    authenticate: Auth
+    authenticate: Authenticate
     log-out: Log Out
     my-account: My Account
     logo_html: "%{icon}kd"
@@ -31,6 +33,11 @@ en:
       title: You're Not Allowed to See This
 
   missions:
+    index:
+      add-one_html: "%{icon} Add a Mission for yourself"
+      title: Missions Being Worked on Right Now
+      previous: See the previous page
+      next: See more Missions
     new:
       description:
         Missions are not things that you can do, they're a theme that guides what you will do.
@@ -115,6 +122,8 @@ en:
           value: "Value: Inspire Michael Jackson to create the Moonwalk"
 
     index:
+      mission-happening_html: "'%{mission_name_tag}'"
+      take-a-look: Take a look at what people are working on right now.
       description:
         text_html:
           Create %{mission_link} plans of %{deliverable_link}.

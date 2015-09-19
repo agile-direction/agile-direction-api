@@ -3,6 +3,10 @@
     %span.keep KEEP
     %br
     %span.delivering DELIVERING
+    %br
+    %span#missions-happening
+      - mission_name_tag = content_tag(:span, nil, { id: "mission-name" })
+      = t(".mission-happening_html", { mission_name_tag: mission_name_tag })
 
   %p
     - mission_link = link_to(t("home.index.description.mission_link"), glossary_path({ anchor: :mission }))
@@ -11,5 +15,8 @@
   = link_to(t("home.index.create_a_mission_html"), new_mission_path, { class: "action" })
 
 %section#mission-count.contrast
-  = link_to(missions_path) do
-    %h2= t("home.index.active-missions_html", { count: Mission.count })
+  #mission-count-background
+    = @missions.collect(&:name).to_sentence
+  #mission-count-foreground
+    %h2= t("home.index.active-missions_html", { count: @mission_count })
+    = link_to(t(".take-a-look"), missions_path)
