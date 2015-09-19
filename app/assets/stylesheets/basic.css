@@ -32,22 +32,24 @@ body {
 #page {
   position: relative;
   z-index: 2;
+  background-color: rgba(0, 100, 200, 1);
+  background-image: linear-gradient(0deg, transparent 0, rgba(0, 50, 100, 1) 100%);
+  padding: 2% 5%;
+  margin: 1% 1%;
+}
+
+#page,
+footer {
+  padding: 2% 5%;
+  margin: 1% 1%;
 }
 
 body {
-  padding: 2% 5%;
   font-family: 'Open Sans Condensed', sans-serif;
   color: rgba(255, 255, 255, 0.6);
   font-size: 24px;
-  margin: 2% 5%;
-  border: 1px solid rgba(255, 255, 255, 0.2);
   line-height: 1.8em;
-
-  background-color: rgba(8, 1, 46, 1);
-  background-image:
-    repeating-linear-gradient(120deg, rgba(255,255,255,.03), rgba(255,255,255,.03) 1px, transparent 1px, transparent 60px),
-    repeating-linear-gradient(60deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px);
-  background-size: 70px 120px;
+  background-color: rgba(0, 50, 100, 1);
   transition: 1s;
 }
 
@@ -100,31 +102,22 @@ a:focus {
 a.action,
 input[type=submit] {
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.8);
-  border: 1px dashed rgba(255, 255, 255, 0.2);
-  background-color: rgba(166, 120, 3, 0.6);
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(166, 120, 3, 1);
+  border: none;
   transition: 0.4s;
   display: inline-block;
   padding: 0.4em 0.8em;
-  background-image:
-    linear-gradient(60deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1)),
-    linear-gradient(120deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1));
-  background-size: 70px 120px;
 }
 
 /* Ugh! Browser input overrides */
 input[type=submit] {
   font-size: 30px;
   font-family: 'Open Sans Condensed', sans-serif;
+  border: none;
   transition: 0s;
   cursor: pointer;
   width: 100%;
-}
-
-a.action:hover,
-a.action:focus {
-  color: rgba(255, 255, 255, 1);
-  background-color: rgba(166, 120, 3, 1);
 }
 
 a.action.delete {
@@ -140,11 +133,7 @@ a.action.delete:focus {
   font-family: 'Oswald', sans-serif;
 }
 
-.logo .keep {
-  color: rgba(255, 255, 255, 0.4);
-}
-
-.logo .delivering {
+.logo {
   color: rgba(255, 255, 255, 0.8);
 }
 
@@ -194,7 +183,6 @@ nav h1 a {
 }
 
 .home.index #welcome-treatment .logo {
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, .8);
   font-size: 3em;
   line-height: 1.4em;
 }
@@ -228,21 +216,14 @@ nav h1 a {
   position: fixed;
   padding: 2em;
   margin: 2em;
-  background-color: rgba(0, 0, 0, 0.95);
   position: fixed;
   right: 0;
   left: 0;
   top: 0;
-  color: rgba(8, 1, 46, 1);
   box-shadow: 0 0 100px rgba(183, 169, 255, 0.4);
   text-align: center;
   z-index: 9;
-
   background-color: rgba(3, 0, 14, 0.9);
-  background-image:
-    repeating-linear-gradient(120deg, rgba(255,255,255,.03), rgba(255,255,255,.03) 1px, transparent 1px, transparent 60px),
-    repeating-linear-gradient(60deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px);
-  background-size: 70px 120px;
 }
 
 #skip_to_content.hud {
@@ -283,7 +264,6 @@ section {
 }
 
 footer {
-  border-top: 1px solid rgba(255, 255, 255, 0.4);
   font-size: 0.8em;
   opacity: 0.8;
 }

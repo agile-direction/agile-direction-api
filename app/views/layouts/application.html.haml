@@ -20,10 +20,6 @@
   %body{ class: "#{controller_name} #{action_name}" }
     = link_to(t("accessibility.skip-to-main-content"), { anchor: :content }, { id: :skip_to_content, class: "hud", tabindex: 1 })
 
-    #background
-      #vignette
-      #shadow
-
     #page
       %nav
         %h1
@@ -46,12 +42,12 @@
 
         = yield
 
-      %footer
-        %p
-          - open_source_link = link_to(t("footer.open_source_project"), "https://github.com/keep-delivering")
-          - style_link = link_to(t("footer.styleguide"), styleguide_path)
-          = t("footer.about_html", { styleguide_link: style_link, open_source_link: open_source_link })
+    %footer
+      %p
+        - open_source_link = link_to(t("footer.open_source_project"), "https://github.com/keep-delivering")
+        - style_link = link_to(t("footer.styleguide"), styleguide_path)
+        = t("footer.about_html", { styleguide_link: style_link, open_source_link: open_source_link })
 
-        %p
-          - copyright1984_link = link_to("copyright1984", "http://copyright1984.com")
-          = t("footer.copyright_html", { year: Time.now.year, copyright1984_link: copyright1984_link })
+      %p
+        - copyright1984_link = link_to("copyright1984", "http://copyright1984.com")
+        = t("footer.copyright_html", { year: Time.now.year, copyright1984_link: copyright1984_link })
