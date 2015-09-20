@@ -51,8 +51,9 @@
                 %br
                 = requirement.description
             %span.timestop
-              - count_tag = content_tag(:span, (total_time.fdiv(7).ceil), { class: "count" })
-              = t(".timestop_html", { count: count_tag })
+              - count = total_time.fdiv(7).ceil
+              - count_tag = content_tag(:span, count, { class: "count" })
+              = t(".timestop_html", { number_of_weeks: count_tag, count: count })
             = link_to(new_mission_deliverable_requirement_path(@mission, deliverable), { title: t("missions.show.add-requirement") }) do
               = t("missions.show.add-requirement_html", { arrow: t("icons.arrow_html") })
   - else
