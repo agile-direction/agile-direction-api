@@ -23,11 +23,12 @@ class RequirementsController < ApplicationController
     @deliverable = find_deliverable
     @requirement = @deliverable.requirements.new(requirement_params)
     authorize!(:create, @requirement)
+    default_ordering!(@requirement)
 
     respond_to do |format|
       if @requirement.save
         format.html do
-          redirect_to(success_redirect_path, {
+          redirect_to(success_redirect_path(@requirement), {
             notice: t("flashes.create.success")
           })
         end
@@ -45,7 +46,7 @@ class RequirementsController < ApplicationController
     respond_to do |format|
       if @requirement.update(requirement_params)
         format.html do
-          redirect_to(success_redirect_path, {
+          redirect_to(success_redirect_path(@requirement), {
             notice: t("flashes.update.success")
           })
         end
@@ -79,10 +80,12 @@ class RequirementsController < ApplicationController
 
   private
 
-  def success_redirect_path
-    mission_path(@requirement.mission, {
-      anchor: @requirement.to_param
-    })
+  def default_ordering!(requirement)
+    requirement.ordering = requirement.deliverable.requirements.count
+  end
+
+  def success_redirect_path(requirement)
+    mission_path(requirement.mission, { anchor: requirement.to_param })
   end
 
   def find_deliverable

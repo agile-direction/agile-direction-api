@@ -90,14 +90,20 @@ RSpec.describe DeliverablesController, type: :controller do
       expect {
         post(:create, {
           mission_id: @mission.id,
-          deliverable: attributes,
-          ordering: rand(10)
+          deliverable: attributes
         })
       }.to change(Deliverable, :count).by(1)
       created_attributes = latest_deliverable.attributes
       attributes.stringify_keys.each do |(field, value)|
         expect(created_attributes.fetch(field)).to eq(value)
       end
+    end
+
+    it "defaults ordering to last" do
+      first_deliverable = Generator.deliverable!
+      attributes = Generator.deliverable({ mission: first_deliverable.mission }).attributes
+      post(:create, { mission_id: first_deliverable.mission.id, deliverable: attributes })
+      expect(latest_deliverable.ordering).to eq(1)
     end
 
     it "redirects back to mission" do

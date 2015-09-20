@@ -16,14 +16,12 @@ class DeliverablesController < ApplicationController
   def create
     @deliverable = @mission.deliverables.new(deliverable_params)
     authorize!(:update, @deliverable)
+    default_ordering!(@deliverable)
 
     respond_to do |format|
       if @deliverable.save
         format.html do
-          path = mission_path(@deliverable.mission, {
-            anchor: @deliverable.to_param
-          })
-          redirect_to(path, {
+          redirect_to(success_redirect_path(@deliverable), {
             notice: t("flashes.create.success")
           })
         end
@@ -46,10 +44,7 @@ class DeliverablesController < ApplicationController
     respond_to do |format|
       if @deliverable.update(deliverable_params)
         format.html do
-          path = mission_path(@deliverable.mission, {
-            anchor: @deliverable.to_param
-          })
-          redirect_to(path, {
+          redirect_to(success_redirect_path(@deliverable), {
             notice: t("flashes.update.success")
           })
         end
@@ -94,6 +89,14 @@ class DeliverablesController < ApplicationController
   end
 
   private
+
+  def default_ordering!(deliverable)
+    deliverable.ordering = deliverable.mission.deliverables.count
+  end
+
+  def success_redirect_path(deliverable)
+    mission_path(deliverable.mission, { anchor: deliverable.to_param })
+  end
 
   def set_deliverable
     if params[:id]

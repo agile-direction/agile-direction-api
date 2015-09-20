@@ -50,7 +50,6 @@ RSpec.describe(RequirementsController, { type: :controller }) do
     it "creates requirement" do
       params = {
         name: Faker::Name.name,
-        ordering: rand(10),
         description: Faker::Lorem.sentence,
         estimate: rand(10)
       }
@@ -58,6 +57,20 @@ RSpec.describe(RequirementsController, { type: :controller }) do
         post(:create, @route_params.merge({ requirement: params }))
       }.to change { Requirement.count }.by(1)
       expect(latest_requirement.attributes).to include(params.stringify_keys)
+    end
+
+    it "defaults ordering" do
+      first_requirement = Generator.requirement!
+      attributes = Generator.requirement({
+        mission: first_requirement.mission,
+        deliverable: first_requirement.deliverable
+      }).attributes
+      post(:create, {
+        mission_id: first_requirement.mission.to_param,
+        deliverable_id: first_requirement.deliverable.to_param,
+        requirement: attributes
+      })
+      expect(latest_requirement.ordering).to eq(1)
     end
 
     it "redirects to mission page" do
