@@ -60,3 +60,7 @@ Metrics/AbcSize:
 #   .onTheLet
 Style/MultilineOperationIndentation:
   Enabled: false
+
+# Rails controllers are long
+Metrics/ClassLength:
+  Enabled: false
