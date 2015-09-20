@@ -29,11 +29,14 @@
   - if @mission.deliverables.any?
     %ul#deliverables{ "data-id" => @mission.id }
       - @mission.deliverables.each do |deliverable|
-        %li.deliverable{ id: deliverable.to_param, "data-id" => deliverable.id }
+        - expandClass = (deliverable.requirements.any? && deliverable.requirements.all?(&:completed?)) ? 'collapsed' : ''
+        %li.deliverable.expandable{ class: expandClass, id: deliverable.to_param, "data-id" => deliverable.id }
           %span.deliverable_handle= t("icons.handle_html")
           = link_to(deliverable.name, edit_mission_deliverable_path(@mission, deliverable))
+          = link_to(t("icons.expand.down_html"), "#", { class: "expand", title: t("icons.expand.title_html") })
+          = link_to(t("icons.collapse.up_html"), "#", { class: "collapse", title: t("icons.collapse.title_html") })
           %span.subnote= deliverable.value
-          %ul.requirements{ "data-id" => deliverable.id }
+          %ul.requirements.expandee{ "data-id" => deliverable.id }
             - deliverable.requirements.each do |requirement|
               - unless requirement.completed?
                 - total_time += requirement.estimate.to_i

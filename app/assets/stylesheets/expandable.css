@@ -1,0 +1,22 @@
+.expandable {
+}
+
+.expandable .expand,
+#page .expandable a.expand {
+  display: none;
+}
+
+.expandable.collapsed .expand,
+#page .expandable.collapsed a.expand {
+  display: initial;
+}
+
+.expandable.collapsed .collapse,
+#page .expandable.collapsed a.collapse {
+  display: none;
+  color: yellow !important;
+}
+
+.expandable.collapsed .expandee {
+  display: none;
+}

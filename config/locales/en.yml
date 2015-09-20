@@ -7,6 +7,12 @@ en:
     ready_html: "&cir;"
     handle_html: "&vellip;"
     x_html: "&#10683;"
+    expand:
+      title_html: "&caron; Expand"
+      down_html: "&caron;"
+    collapse:
+      title_html: "&circ; Collapse"
+      up_html: "&circ;"
 
   pagination_html: "%{previous_page_html} | %{next_page_html}"
 
