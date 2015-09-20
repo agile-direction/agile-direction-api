@@ -224,7 +224,9 @@ RSpec.describe(RequirementsController, { type: :controller }) do
 
     it "redirects to the mission" do
       delete(:destroy, @route_params.merge({ id: @requirement.to_param }))
-      expect(response).to redirect_to(mission_path(@mission))
+      expect(response).to redirect_to(mission_path(@mission, {
+        anchor: @requirement.deliverable.to_param
+      }))
     end
 
     it "allows anyone for unowned missions" do

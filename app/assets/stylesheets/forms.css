@@ -3,8 +3,10 @@
   border: none;
 }
 
-input {
+input,
+select {
   font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 1em;
 }
 
 .fill-me-in {
@@ -35,9 +37,8 @@ input {
 }
 
 .fill-me-in select {
-  width: 60%;
+  width: 70%;
   position: absolute;
-  padding: 0.5em 5%;
   top: -0.2em;
   bottom: -0.2em;
   right: -0.2em;

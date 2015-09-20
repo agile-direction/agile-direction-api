@@ -66,7 +66,11 @@ class DeliverablesController < ApplicationController
 
     @deliverable.destroy
     respond_to do |format|
-      format.html { redirect_to @deliverable.mission, { notice: "Deliverable was successfully destroyed." } }
+      format.html do
+        redirect_to(@deliverable.mission, {
+          notice: t("flashes.destroy.success")
+        })
+      end
       format.json { head :no_content }
     end
   end

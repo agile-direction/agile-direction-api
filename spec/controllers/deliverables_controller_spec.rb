@@ -239,6 +239,14 @@ RSpec.describe DeliverablesController, type: :controller do
       }.to change(Deliverable, :count).by(-1)
     end
 
+    it "destroys requirements" do
+      deliverable = Generator.deliverable!
+      2.times { Generator.requirement!({ deliverable: deliverable }) }
+      expect {
+        delete(:destroy, { mission_id: @mission.to_param, id: deliverable.to_param })
+      }.to change(Requirement, :count).by(-2)
+    end
+
     it "redirects to the deliverables list" do
       delete(:destroy, { mission_id: @mission.id, id: @deliverable.to_param })
       expect(response).to redirect_to(mission_path(@deliverable.mission))

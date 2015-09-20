@@ -22,7 +22,13 @@
   .fill-me-in
     - # i18n-tasks-use t('activerecord.attributes.requirement.estimate')
     = f.label(:estimate)
-    = f.number_field :estimate, :step => 1
+    = f.number_field(:estimate, { step: 1 })
 
   .actions
     = f.submit 'Save'
+
+  - unless @requirement.new_record?
+    %h3 Danger Zone
+    - delete_path = mission_deliverable_requirement_path(@requirement.mission, @requirement.deliverable, @requirement)
+    - options = { class: "action delete", method: :delete, data: { confirm: t("flashes.destroy.are-you-sure") } }
+    = link_to(t("actions.delete"), delete_path, options)

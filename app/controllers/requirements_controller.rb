@@ -70,8 +70,11 @@ class RequirementsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        redirect_to(mission_path(@requirement.mission), {
-          notice: "Requirement was successfully destroyed."
+        path = mission_path(@requirement.mission, {
+          anchor: @requirement.deliverable.to_param
+        })
+        redirect_to(path, {
+          notice: t("flashes.destroy.success")
         })
       end
       format.json { head :no_content }
