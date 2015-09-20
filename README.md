@@ -34,7 +34,7 @@ bin/foreman start # performant, port 5000
 ```
 open "https://toolbelt.heroku.com/" # get the Heroku toolbelt
 heroku login
-heroku git:remote -a agile-direction-api
+heroku git:remote -a keepdelivering
 ```
 
 ### Deploy
