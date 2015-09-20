@@ -42,3 +42,10 @@ heroku git:remote -a keepdelivering
 ```
 bin/deploy
 ```
+
+### Migrations
+
+```
+heroku run rake db:migrate
+heroku restart
+```
