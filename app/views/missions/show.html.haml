@@ -25,16 +25,19 @@
   %p
     = @mission.description
 
+  - total_time = 0
   - if @mission.deliverables.any?
     %ul#deliverables{ "data-id" => @mission.id }
       - @mission.deliverables.each do |deliverable|
-        %li{ id: deliverable.to_param, "data-id" => deliverable.id }
+        %li.deliverable{ id: deliverable.to_param, "data-id" => deliverable.id }
           %span.deliverable_handle= t("icons.handle_html")
           = link_to(deliverable.name, edit_mission_deliverable_path(@mission, deliverable))
           %span.subnote= deliverable.value
           %ul.requirements{ "data-id" => deliverable.id }
             - deliverable.requirements.each do |requirement|
-              %li.requirement{ id: requirement.to_param, "data-id" => requirement.id }
+              - unless requirement.completed?
+                - total_time += requirement.estimate.to_i
+              %li.requirement{ id: requirement.to_param, "data-id" => requirement.id, "data-estimate" => requirement.estimate, "data-state" => requirement.status }
                 %span.requirement_handle= t("icons.handle_html")
                 = link_to(t("deliverables.show.requirement_html", { name: requirement.name, estimate: requirement.estimate}),edit_mission_deliverable_requirement_path(@mission,deliverable, requirement))
                 - if requirement.created?
@@ -47,6 +50,9 @@
                   = link_to(text, path, method: :put, title: "Finish")
                 %br
                 = requirement.description
+            %span.timestop
+              - count_tag = content_tag(:span, (total_time.fdiv(7).ceil), { class: "count" })
+              = t(".timestop_html", { count: count_tag })
             = link_to(new_mission_deliverable_requirement_path(@mission, deliverable), { title: t("missions.show.add-requirement") }) do
               = t("missions.show.add-requirement_html", { arrow: t("icons.arrow_html") })
   - else

@@ -8,6 +8,20 @@
     }
   };
 
+  var updateEstimates = function() {
+    var totalTime = 0;
+    $('ul#deliverables li.deliverable').each(function(index, deliverableList) {
+      var elementHoldingEstimate = $(deliverableList).find('.timestop .count');
+      $(deliverableList).find('li.requirement').each(function(index, requirementLi) {
+        if ($(requirementLi).data('state') != 'completed') {
+          totalTime += parseInt($(requirementLi).data('estimate'));
+        }
+      });
+      var timeInWeeks = Math.ceil(totalTime/7);
+      elementHoldingEstimate.html(timeInWeeks);
+    });
+  };
+
   var request = function(url, data) {
     ui.doingThings();
     $.ajax({
@@ -62,6 +76,7 @@
       },
       update: function(event, ui) {
         updateOrderOfDeliverables(event.target);
+        updateEstimates();
       }
     });
 
@@ -71,6 +86,7 @@
       connectWith: '.requirements',
       update: function(event, ui) {
         updateOrderOfRequirements(event.target);
+        updateEstimates();
       }
     });
   };
