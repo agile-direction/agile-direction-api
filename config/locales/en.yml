@@ -65,6 +65,10 @@ en:
       participants: Participants
       add-participant: Add Participant
       add-participant_html: "%{arrow} add participant"
+      timestop_html:
+        zero: "%{count} weeks"
+        one: "%{count} week"
+        other: "%{count} weeks"
       requirement:
         start_html: "%{icon} Start"
         finish_html: "%{icon} Finish"

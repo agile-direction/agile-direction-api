@@ -10,25 +10,6 @@ body {
   float: right;
 }
 
-#background #vignette {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: radial-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
-}
-
-#background #shadow {
-  position: fixed;
-  bottom: 0;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.0) 10%, rgba(0, 0, 0, 0.0) 40%, rgba(0, 0, 0, 0.6) 100%);
-}
-
 #page {
   position: relative;
   z-index: 2;
@@ -309,6 +290,18 @@ footer {
 .underline {
   border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
   margin-bottom: 4px;
+}
+
+ul#deliverables li {
+  position: relative;
+}
+
+ul#deliverables .timestop {
+  position: absolute;
+  right: 100%;
+  width: 200px;
+  text-align: right;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .deliverable_handle,
