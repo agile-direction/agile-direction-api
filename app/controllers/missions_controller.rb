@@ -37,6 +37,7 @@ class MissionsController < ApplicationController
   def show
     authorize!(:read, @mission)
     @participants = @mission.participants
+    @mission = Mission.where({ id: params[:id] }).includes(:deliverables, :requirements).first
   end
 
   def new

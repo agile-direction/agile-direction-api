@@ -1,0 +1,41 @@
+.progress-created .progress-bar {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.progress-created {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.progress-started .progress-bar {
+  background-color: rgba(166, 120, 3, 1);
+}
+
+.progress-started  {
+  color: rgba(166, 120, 3, 1);
+}
+
+.progress-completed .progress-bar {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.progress-completed {
+  color: rgba(255, 255, 255, 0.1);
+}
+
+.progress {
+  line-height: 1em;
+}
+
+.progress-bar {
+  height: 0.2em;
+  background-color: pink;
+  width: 0%;
+  max-width: 80%;
+  min-width: 2%;
+  display: inline-block;
+  margin-bottom: 0.2em;
+}
+
+.progress-description {
+  display: inline-block;
+}

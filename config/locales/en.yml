@@ -1,4 +1,13 @@
 en:
+  icons:
+    arrow_html: "&#x029BE;"
+    actioning_html: "&#x029BE;"
+    completed_html: "&ofcir;"
+    delete_html: "&otimes;"
+    ready_html: "&cir;"
+    handle_html: "&vellip;"
+    x_html: "&#10683;"
+
   pagination_html: "%{previous_page_html} | %{next_page_html}"
 
   flashes:
@@ -7,12 +16,6 @@ en:
       success: Create successful
     update:
       success: Update successful
-
-  icons:
-    arrow_html: "&#x029BE;"
-    class_icon_html: ""
-    handle_html: "&vellip;"
-    x_html: "&#10683;"
 
   nav:
     browse: Browse
@@ -55,10 +58,12 @@ en:
       add-deliverable: Add Deliverable
       add-requirement_html: "%{arrow} add requirement"
       add-requirement: Add Requirement
-      deliverable_html: "%{name} - %{estimate} days"
       participants: Participants
       add-participant: Add Participant
       add-participant_html: "%{arrow} add participant"
+      requirement:
+        start_html: "%{icon} Start"
+        finish_html: "%{icon} Finish"
 
   deliverables:
     new:
@@ -95,6 +100,12 @@ en:
         action: Actions
         work: Work
         work-completed: Work (Completed)
+      icons:
+        title: Icons
+        ready_html: "%{icon} Ready"
+        action_html: "%{icon} In Action"
+        completed_html: "%{icon} Completed"
+        delete_html: "%{icon} Delete"
 
     glossary:
       requirement:

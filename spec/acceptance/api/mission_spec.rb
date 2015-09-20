@@ -13,10 +13,10 @@ RSpec.describe("Mission API", { type: :request }) do
       expect(json_body['mission']['updated_at']).to be
     end
 
-    it 'expands to return all its deliverables in reverse order' do
+    it 'expands to return all its deliverables in order' do
       mission = Mission.create!(name: 'Some Mission', description: 'It will make us so much money')
-      del1 = mission.deliverables.create!(name: 'Deliverable 1', value: 'desc 1', ordering: 6)
-      del2 = mission.deliverables.create!(name: 'Deliverable 2', value: 'desc 2', ordering: 3)
+      del1 = mission.deliverables.create!(name: 'Deliverable 1', value: 'desc 1', ordering: 3)
+      del2 = mission.deliverables.create!(name: 'Deliverable 2', value: 'desc 2', ordering: 6)
 
       get "/api/v1/missions/#{mission.id}"
       expect(response).to be_success
@@ -29,11 +29,11 @@ RSpec.describe("Mission API", { type: :request }) do
       expect(json_body['mission']['deliverables'][0]['updated_at']).to be
     end
 
-    it 'expands to return all its deliverables.requirements in reverse order' do
+    it 'expands to return all its deliverables.requirements in order' do
       mission = Mission.create!(name: 'Some Mission', description: 'It will make us so much money')
       del1 = mission.deliverables.create!(name: 'Deliverable 1', value: 'desc 1')
-      req1 = del1.requirements.create!(name: 'Requirement 1', description: 'desc 1', ordering: 3)
-      req2 = del1.requirements.create!(name: 'Requirement 2', description: 'desc 2', ordering: 1)
+      req2 = del1.requirements.create!(name: 'Requirement 2', description: 'desc 2', ordering: 3)
+      req1 = del1.requirements.create!(name: 'Requirement 1', description: 'desc 1', ordering: 1)
 
       get "/api/v1/missions/#{mission.id}"
       expect(response).to be_success

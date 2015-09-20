@@ -1,22 +1,28 @@
 class Mission < ActiveRecord::Base
   validates(:name, { presence: true })
 
-  has_many(:deliverables, -> { order "ordering DESC" })
+  has_many(:deliverables, -> { order({ ordering: :asc }) })
+  has_many(:requirements, { through: :deliverables })
 
   has_many(:participants, { as: :joinable })
   has_many(:users, { through: :participants })
 
-  def progress
-    requirements = deliverables.map(&:requirements).flatten!
-
-    progress = requirements.each_with_object(Hash.new(0)) do |e, a|
-      a[e.status] += (e.estimate * 100).fdiv(estimate)
-      a
+  def status
+    requirements = Requirement
+      .joins(:deliverable)
+      .where({ deliverables: { mission_id: id } })
+      .select("SUM(estimate) as time", :status)
+      .group(:status)
+    requirements.each_with_object(default_statuses) do |object, statuses|
+      statuses[object.status] = object.time
     end
-    progress.each { |key, value| progress[key] = value.round(2) }
   end
 
-  def estimate
-    deliverables.map(&:estimate).sum
+  private
+
+  def default_statuses
+    Requirement.statuses.keys.each_with_object({}) do |status, statuses|
+      statuses[status] = 0
+    end
   end
 end
