@@ -47,8 +47,16 @@ Style/IndentHash:
 Style/ParenthesesAroundCondition:
   Enabled: false
 
-style/BracesAroundHashParameters:
+Style/BracesAroundHashParameters:
   Enabled: false
 
 Metrics/AbcSize:
   Max: 20
+
+# VeryLongClassNameThingThatImQuerying
+#   .wants
+#   .query
+#   .readable
+#   .onTheLet
+Style/MultilineOperationIndentation:
+  Enabled: false

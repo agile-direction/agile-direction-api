@@ -24,5 +24,7 @@
     = f.label(:estimate)
     = f.number_field :estimate, :step => 1
 
+  = hidden_field(:ordering, @requirement.deliverable.requirements.count)
+
   .actions
     = f.submit 'Save'

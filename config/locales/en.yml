@@ -3,6 +3,10 @@ en:
 
   flashes:
     must-login: Please login before you do that.
+    create:
+      success: Create successful
+    update:
+      success: Update successful
 
   icons:
     arrow_html: "&#x029BE;"

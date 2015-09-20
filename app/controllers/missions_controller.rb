@@ -13,7 +13,7 @@ class MissionsController < ApplicationController
   def index
     @page = params[:page].to_i
     @mission_count = Mission.count
-    @mission_per_page = PAGE_LIMIT
+    @missions_per_page = PAGE_LIMIT
     @missions = Mission
       .where({ public: true })
       .order({ updated_at: :desc })

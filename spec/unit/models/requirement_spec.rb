@@ -1,15 +1,6 @@
 require "rails_helper"
 
 RSpec.describe(Requirement, { type: :model }) do
-  it("defaults ordering to 0") do
-    mission = Mission.create!({ name: Faker::Name.name })
-    deliverable = mission.deliverables.create!(mission: mission, name: "clean gotham's streets")
-    requirement = Requirement.create!(deliverable: deliverable,
-                                      name: "bring back lau" ,
-                                      description: "you just bring him back.. i will make him sing")
-    expect(requirement.ordering).to eq(0)
-  end
-
   describe("validations") do
     it("requires name") do
       requirement = Requirement.new

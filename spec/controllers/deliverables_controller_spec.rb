@@ -3,6 +3,10 @@ require 'rails_helper'
 RSpec.describe DeliverablesController, type: :controller do
   include APIHelpers
 
+  def latest_deliverable
+    Deliverable.order({ created_at: :desc }).first
+  end
+
   before(:all) do
     @mission = Generator.mission!
     @deliverable = Generator.deliverable!({ mission: @mission })
@@ -79,17 +83,28 @@ RSpec.describe DeliverablesController, type: :controller do
 
   describe "POST #create" do
     it "creates a new Deliverable for mission" do
+      attributes = {
+        name: Faker::Name.name,
+        value: Faker::Lorem.sentence
+      }
       expect {
         post(:create, {
           mission_id: @mission.id,
-          deliverable: Generator.deliverable.attributes
+          deliverable: attributes,
+          ordering: rand(10)
         })
       }.to change(Deliverable, :count).by(1)
+      created_attributes = latest_deliverable.attributes
+      attributes.stringify_keys.each do |(field, value)|
+        expect(created_attributes.fetch(field)).to eq(value)
+      end
     end
 
     it "redirects back to mission" do
       post(:create, { mission_id: @mission.id, deliverable: Generator.deliverable.attributes })
-      expect(response).to redirect_to(mission_path(@mission))
+      expect(response).to redirect_to(mission_path(@mission, {
+        anchor: latest_deliverable.to_param
+      }))
     end
 
     it "re-renders the 'new' template on error" do
@@ -158,7 +173,9 @@ RSpec.describe DeliverablesController, type: :controller do
           name: Faker::Name.name
         }
       })
-      expect(response).to redirect_to(@deliverable.mission)
+      expect(response).to redirect_to(mission_path(@deliverable.mission, {
+        anchor: latest_deliverable.to_param
+      }))
     end
 
     it "re-renders the 'edit' template on error" do

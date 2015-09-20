@@ -14,8 +14,6 @@ class Requirement < ActiveRecord::Base
   validates(:name, { presence: true })
   validates(:deliverable, { presence: true })
 
-  before_validation :set_defaults
-
   aasm({ column: :status }) do
     state :created, initial: true
     state :started
@@ -28,9 +26,5 @@ class Requirement < ActiveRecord::Base
     event :finish do
       transitions from: :started, to: :completed
     end
-  end
-
-  def set_defaults
-    self.ordering ||= 0
   end
 end

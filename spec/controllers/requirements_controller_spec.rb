@@ -3,6 +3,10 @@ require 'rails_helper'
 RSpec.describe(RequirementsController, { type: :controller }) do
   include APIHelpers
 
+  def latest_requirement
+    Requirement.order({ updated_at: :desc }).first
+  end
+
   before(:all) do
     @participant = Generator.user!
     @non_participant = Generator.user!
@@ -53,7 +57,16 @@ RSpec.describe(RequirementsController, { type: :controller }) do
       expect {
         post(:create, @route_params.merge({ requirement: params }))
       }.to change { Requirement.count }.by(1)
-      expect(Requirement.order({ created_at: :desc }).first.attributes).to include(params.stringify_keys)
+      expect(latest_requirement.attributes).to include(params.stringify_keys)
+    end
+
+    it "redirects to mission page" do
+      post(:create, @route_params.merge({
+        requirement: Generator.requirement.attributes
+      }))
+      expect(response).to redirect_to(mission_path(@mission, {
+        anchor: latest_requirement.to_param
+      }))
     end
 
     it "allows anyone for unowned missions" do
@@ -81,7 +94,7 @@ RSpec.describe(RequirementsController, { type: :controller }) do
       expect(response).to redirect_to(auth_path)
     end
 
-    it "deos not allow non-participants of owned missions" do
+    it "does not allow non-participants of owned missions" do
       @mission.users << @participant
       login!(@non_participant) do
         expect {
@@ -144,7 +157,9 @@ RSpec.describe(RequirementsController, { type: :controller }) do
 
     it "redirects to the mission" do
       put(:update, @route_params.merge({ id: @requirement.id, requirement: { name: Faker::Name.name } }))
-      expect(response).to redirect_to(mission_path(@mission))
+      expect(response).to redirect_to(mission_path(@mission, {
+        anchor: latest_requirement.to_param
+      }))
     end
 
     it "re-renders the 'edit' template" do
@@ -155,7 +170,9 @@ RSpec.describe(RequirementsController, { type: :controller }) do
 
     it "allows anyone for unowned missions" do
       put(:update, @route_params.merge({ id: @requirement.id, requirement: { name: Faker::Name.name } }))
-      expect(response).to redirect_to(mission_path(@mission))
+      expect(response).to redirect_to(mission_path(@mission, {
+        anchor: latest_requirement.to_param
+      }))
     end
 
     it "allows participants of owned missions" do
@@ -163,7 +180,9 @@ RSpec.describe(RequirementsController, { type: :controller }) do
       login!(@participant) do
         put(:update, @route_params.merge({ id: @requirement.id, requirement: { name: Faker::Name.name } }))
       end
-      expect(response).to redirect_to(mission_path(@mission))
+      expect(response).to redirect_to(mission_path(@mission, {
+        anchor: latest_requirement.to_param
+      }))
     end
 
     it "does not allow anonymous users of owned missions" do

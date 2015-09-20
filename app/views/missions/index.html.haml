@@ -10,7 +10,7 @@
 
 #pagination
   - previous_page = (@page > 0)
-  - next_page = (@mission_count > ((@page + 1) * @mission_per_page))
+  - next_page = (@mission_count > ((@page + 1) * @missions_per_page))
   - previous_link = link_to(t(".previous"), missions_path({ page: (@page - 1) }))
   - next_link = link_to(t(".next"), missions_path({ page: (@page + 1) }))
 

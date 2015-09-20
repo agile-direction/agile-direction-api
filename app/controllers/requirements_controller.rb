@@ -27,8 +27,8 @@ class RequirementsController < ApplicationController
     respond_to do |format|
       if @requirement.save
         format.html do
-          redirect_to(mission_path(@deliverable.mission), {
-            notice: "Requirement was successfully created."
+          redirect_to(success_redirect_path, {
+            notice: t("flashes.create.success")
           })
         end
         format.json { render :show, status: :created, location: @requirement }
@@ -45,8 +45,8 @@ class RequirementsController < ApplicationController
     respond_to do |format|
       if @requirement.update(requirement_params)
         format.html do
-          redirect_to(mission_path(@requirement.mission), {
-            notice: "Requirement was successfully updated."
+          redirect_to(success_redirect_path, {
+            notice: t("flashes.update.success")
           })
         end
         format.json do
@@ -78,6 +78,12 @@ class RequirementsController < ApplicationController
   end
 
   private
+
+  def success_redirect_path
+    mission_path(@requirement.mission, {
+      anchor: @requirement.to_param
+    })
+  end
 
   def find_deliverable
     Deliverable.where({ id: params[:deliverable_id] }).includes(:mission).first

@@ -19,8 +19,20 @@ class DeliverablesController < ApplicationController
 
     respond_to do |format|
       if @deliverable.save
-        format.html { redirect_to @deliverable.mission, { notice: "Deliverable was successfully created." } }
-        format.json { render :show, { status: :created, location: @deliverable } }
+        format.html do
+          path = mission_path(@deliverable.mission, {
+            anchor: @deliverable.to_param
+          })
+          redirect_to(path, {
+            notice: t("flashes.create.success")
+          })
+        end
+        format.json do
+          render(:show, {
+            status: :created,
+            location: @deliverable
+          })
+        end
       else
         format.html { render :new }
         format.json { render json: @deliverable.errors, status: :unprocessable_entity }
@@ -33,8 +45,20 @@ class DeliverablesController < ApplicationController
 
     respond_to do |format|
       if @deliverable.update(deliverable_params)
-        format.html { redirect_to @deliverable.mission, { notice: "Deliverable was successfully updated." } }
-        format.json { render :show, { status: :ok, location: @deliverable } }
+        format.html do
+          path = mission_path(@deliverable.mission, {
+            anchor: @deliverable.to_param
+          })
+          redirect_to(path, {
+            notice: t("flashes.update.success")
+          })
+        end
+        format.json do
+          render(:show, {
+            status: :ok,
+            location: @deliverable
+          })
+        end
       else
         format.html { render :edit }
         format.json { render json: @deliverable.errors, status: :unprocessable_entity }

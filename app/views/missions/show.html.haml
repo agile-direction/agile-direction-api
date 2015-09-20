@@ -19,13 +19,13 @@
   - if @mission.deliverables.any?
     %ul#deliverables{ "data-id" => @mission.id }
       - @mission.deliverables.reverse_order.each do |deliverable|
-        %li{ "data-id" => deliverable.id }
+        %li{ id: deliverable.to_param, "data-id" => deliverable.id }
           %span.deliverable_handle= t("icons.handle_html")
           = link_to(t("missions.show.deliverable_html", { name: deliverable.name , estimate: deliverable.estimate}), edit_mission_deliverable_path(@mission, deliverable))
           %span.subnote= deliverable.value
           %ul.requirements{ "data-id" => deliverable.id }
             - deliverable.requirements.reverse_order.each do |requirement|
-              %li.requirement{ "data-id" => requirement.id }
+              %li.requirement{ id: requirement.to_param, "data-id" => requirement.id }
                 %span.requirement_handle= t("icons.handle_html")
                 = link_to(t("deliverables.show.requirement_html", { name: requirement.name, estimate: requirement.estimate}),edit_mission_deliverable_requirement_path(@mission,deliverable, requirement))
                 - if requirement.created?
