@@ -49,6 +49,11 @@ When(/^I view the mission/) do
   visit "/missions/#{@mission.id}"
 end
 
+When(/^I clone the mission/) do
+  visit(mission_path(@mission))
+  click_link("Clone")
+end
+
 When(/^I view a mission$/) do
   @mission = Generator.mission!
   visit "/missions/#{@mission.id}"
@@ -56,5 +61,10 @@ end
 
 Then(/^I see that mission$/) do
   expect(page).to have_content(@mission.name)
+  expect(page).to have_content(@mission.description)
+end
+
+Then(/^I should see a cloned mission$/) do
+  expect(page).to have_content(@mission.name + " (clone)")
   expect(page).to have_content(@mission.description)
 end

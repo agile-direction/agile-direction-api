@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources(:missions) do
     member do
       put("order_deliverables")
+      post("clone")
     end
 
     resources(:participants, { only: [:new, :create, :destroy] })

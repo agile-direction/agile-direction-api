@@ -23,6 +23,10 @@ RSpec.describe MissionsController, type: :routing do
       expect(:post => "/missions").to route_to("missions#create")
     end
 
+    it "routes to #clone" do
+      expect(:post => "/missions/123/clone").to route_to("missions#clone", { id: "123" })
+    end
+
     it "routes to #update" do
       expect(:put => "/missions/1").to route_to("missions#update", :id => "1")
     end

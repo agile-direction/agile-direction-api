@@ -288,4 +288,19 @@ RSpec.describe(MissionsController, { type: :controller }) do
       expect(response.status).to eq(403)
     end
   end
+
+  describe "POST clone" do
+    it "creates clone" do
+      mission = Generator.mission!
+      expect {
+        post(:clone, { id: mission.to_param })
+      }.to change(Mission, :count).by(1)
+    end
+
+    it "redirects to clone" do
+      mission = Generator.mission!
+      post(:clone, { id: mission.clone })
+      expect(response).to redirect_to(mission_path(Mission.order({ created_at: :desc }).first))
+    end
+  end
 end

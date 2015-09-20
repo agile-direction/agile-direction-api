@@ -31,6 +31,7 @@ en:
     delete: Delete
     edit: Edit
     save: Save
+    clone: Clone!
 
   head:
     default_title: "Keep Delivering"
@@ -67,6 +68,13 @@ en:
       requirement:
         start_html: "%{icon} Start"
         finish_html: "%{icon} Finish"
+      clone:
+        title: Cloning
+        description: Ready to do this again, or ready to try someone else's Mission?
+        from_html: "Cloned from %{link}"
+        total:
+          one: "%{count} clone"
+          other: "%{count} clones"
 
   deliverables:
     new:
@@ -178,5 +186,7 @@ en:
 
   activerecord:
     attributes:
+      mission:
+        cloned_name: "%{name} (clone)"
       requirement:
         estimate: "Estimate in days"

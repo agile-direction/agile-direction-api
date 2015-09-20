@@ -3,7 +3,7 @@ class MissionsController < ApplicationController
   PAGE_LIMIT = 10
 
   before_action(:set_mission, {
-    only: [:show, :edit, :update, :destroy, :order_deliverables]
+    only: [:show, :edit, :update, :destroy, :order_deliverables, :clone]
   })
 
   before_action({ only: [:show, :edit, :update] }) do
@@ -92,6 +92,11 @@ class MissionsController < ApplicationController
       deliverables.collect(&:save!)
       format.json { render json: @mission }
     end
+  end
+
+  def clone
+    new_mission = @mission.clone!
+    redirect_to(mission_path(new_mission))
   end
 
   private
