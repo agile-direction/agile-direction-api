@@ -27,6 +27,7 @@
         %ul
           %li= link_to(t("nav.browse"), missions_path)
           - if current_user
+            %li= link_to(t("nav.activity"), activity_user_path(current_user))
             %li= link_to(t("nav.my-account"), user_path(current_user))
             %li= link_to(t("nav.log-out"), logout_path, { method: :put })
           - else

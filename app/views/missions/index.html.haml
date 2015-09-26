@@ -8,15 +8,4 @@
       = link_to(mission.name, mission_path(mission))
       .subnote= mission.description
 
-#pagination
-  - previous_page = (@page > 0)
-  - next_page = (@mission_count > ((@page + 1) * @missions_per_page))
-  - previous_link = link_to(t(".previous"), missions_path({ page: (@page - 1) }))
-  - next_link = link_to(t(".next"), missions_path({ page: (@page + 1) }))
-
-  - if (previous_page && next_page)
-    = t("pagination_html", { next_page_html: next_link, previous_page_html: previous_link })
-  - elsif next_page
-    = next_link
-  - elsif previous_page
-    = previous_link
+= render({ partial: "/shared/pagination", locals: { links: @links } })

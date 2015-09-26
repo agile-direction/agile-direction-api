@@ -16,6 +16,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def generate_links(query, page, limit)
+    {}.tap do |links|
+      has_next_page = (query.count > ((page + 1) * limit))
+      links[:next] = yield(page + 1) if has_next_page
+      if (page > 0)
+        links[:previous] = (page == 1) ? yield(nil) : yield(page - 1)
+      end
+    end
+  end
+
   def require_user!
     return true if current_user
     flash[:alert] = t("flashes.must-login")

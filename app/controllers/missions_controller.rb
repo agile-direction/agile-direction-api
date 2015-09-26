@@ -11,14 +11,13 @@ class MissionsController < ApplicationController
   end
 
   def index
-    @page = params[:page].to_i
-    @mission_count = Mission.count
-    @missions_per_page = PAGE_LIMIT
-    @missions = Mission
-      .where({ public: true })
-      .order({ updated_at: :desc })
-      .offset((@page * PAGE_LIMIT))
-      .limit(@mission_per_page)
+    page = params[:page].to_i
+    query = Mission.where({ public: true }).order({ updated_at: :desc })
+    @missions = query.offset((page * PAGE_LIMIT)).limit(PAGE_LIMIT)
+
+    @links = generate_links(query, page, PAGE_LIMIT) do |page_param|
+      missions_path({ page: page_param })
+    end
 
     respond_to do |format|
       format.html do
