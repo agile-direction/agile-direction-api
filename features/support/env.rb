@@ -16,7 +16,17 @@ Capybara.app = Builders::FULL_STACK
 headless = (ENV["HEADLESS"] == "true")
 if headless
   Capybara.register_driver(:poltergeist) do |app|
-    Capybara::Poltergeist::Driver.new(app, { debug: false, extensions: ["vendor/poltergeist/bind.js"] })
+    driver = Capybara::Poltergeist::Driver.new(app, {
+      debug: false,
+      extensions: ["vendor/poltergeist/bind.js"],
+      js_errors: false
+    })
+
+    def driver.accept_modal(*_args)
+      yield if block_given?
+    end
+
+    driver
   end
 else
   Capybara.register_driver(:browser) do |app|

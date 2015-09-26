@@ -4,7 +4,7 @@
   var ready = function() {
     $('.progress .progress-bar').each(function(index, element) {
       var width = $(element).data('percent');
-      $(element).animate({ width: `${width}%` }, animationLength);
+      $(element).animate({ width: (width + '%') }, animationLength);
     });
   };
 
