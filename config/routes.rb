@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources(:users, { only: [:index, :show] })
+  resources(:users, { only: [:index, :show] }) do
+    member do
+      get(:activity)
+    end
+  end
 
   get("/glossary", { to: "home#glossary" })
   get("/styleguide", { to: "home#styleguide" })

@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "missions/index", type: :view do
   before(:each) do
+    assign(:links, {})
     assign(:missions, 2.times.collect {
       Mission.create!({ name: Faker::Name.name })
     })
@@ -11,6 +12,7 @@ RSpec.describe "missions/index", type: :view do
   end
 
   it "renders a list of missions" do
+    assign(:links, {})
     render
   end
 end

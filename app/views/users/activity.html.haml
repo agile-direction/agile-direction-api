@@ -1,0 +1,7 @@
+%h1= t(".title")
+
+%ul
+  - @missions.each do |mission|
+    %li= link_to(mission.name, mission_path(mission))
+
+= render({ partial: "/shared/pagination", locals: { links: @links } })

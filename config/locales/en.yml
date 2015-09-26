@@ -14,7 +14,11 @@ en:
       title_html: "&circ; Collapse"
       up_html: "&circ;"
 
-  pagination_html: "%{previous_page_html} | %{next_page_html}"
+  shared:
+    pagination:
+      pagination_html: "%{previous_page_html} | %{next_page_html}"
+      previous: Previous
+      next: More
 
   flashes:
     must-login: Please login before you do that.
@@ -32,6 +36,7 @@ en:
     log-out: Log Out
     my-account: My Account
     logo_html: "%{icon}kd"
+    activity: Activity
 
   actions:
     delete: Delete
@@ -53,8 +58,6 @@ en:
     index:
       add-one_html: "%{icon} Add a Mission for yourself"
       title: Missions Being Worked on Right Now
-      previous: See the previous page
-      next: See more Missions
     new:
       description:
         Missions are not things that you can do, they're a theme that guides what you will do.
@@ -193,6 +196,10 @@ en:
       title: "Add User to %{mission_name}"
       user_email: User Email
       directions: Search and then select the user.
+
+  users:
+    activity:
+      title: Activity
 
   activerecord:
     attributes:

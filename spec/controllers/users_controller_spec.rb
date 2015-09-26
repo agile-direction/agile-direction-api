@@ -63,4 +63,39 @@ RSpec.describe UsersController, type: :controller do
       expect(response.status).to eq(403)
     end
   end
+
+  describe "GET #activity" do
+    before(:all) do
+      @user = Generator.user!
+    end
+
+    it "loads user's missions" do
+      missions = 2.times.collect { Generator.mission!({ users: [@user] }) }
+      login!(@user) do
+        get(:activity, { id: @user.id })
+        expect(response).to be_ok
+        expect(assigns(:missions)).to eq(missions.reverse)
+      end
+    end
+
+    it "only shows logged in user's activity" do
+      get(:activity, { id: @user.id })
+      expect(response).to redirect_to(auth_path)
+
+      other_user = Generator.user!
+      login!(other_user) do
+        get(:activity, { id: @user.id })
+        expect(response.status).to eq(403)
+      end
+    end
+
+    it "paginates results" do
+      missions = 21.times.collect { Generator.mission!({ users: [@user] }) }
+      login!(@user) do
+        get(:activity, { id: @user.id, page: 2 })
+        expect(response).to be_ok
+        expect(assigns(:missions).size).to eq(1)
+      end
+    end
+  end
 end

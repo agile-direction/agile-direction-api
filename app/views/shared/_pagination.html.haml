@@ -1,0 +1,12 @@
+#pagination
+  - if links[:previous]
+    - previous_link = link_to(t(".previous"), links[:previous])
+  - if links[:next]
+    - next_link = link_to(t(".next"), links[:next])
+
+  - if (previous_link && next_link)
+    = t(".pagination_html", { next_page_html: next_link, previous_page_html: previous_link })
+  - elsif next_link
+    = next_link
+  - elsif previous_link
+    = previous_link
