@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+docker run \
+  --name keep-delivering-db \
+  -v /keep-delivering/docker/postgres/data:/var/lib/postgresql/data \
+  -d \
+  postgres
+

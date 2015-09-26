@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+TAG="keep-delivering-nginx:$(git rev-parse HEAD)"
+NAME=keep-delivering-nginx
+docker stop $NAME
+docker rm $NAME
+docker run \
+  --name $NAME \
+  --link keep-delivering-com:keep-delivering-com \
+  -v /keep-delivering/docker/nginx/certs:/etc/nginx/certs \
+  -d \
+  -p 80:80 \
+  -p 443:443 \
+  $TAG
