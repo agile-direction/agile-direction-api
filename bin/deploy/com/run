@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+TAG="keep-delivering:$(git rev-parse HEAD)"
+NAME=keep-delivering-com
+
+docker stop $NAME
+docker rm $NAME
+
+docker run \
+  --name $NAME \
+  --link keep-delivering-db:postgres \
+  --env-file .env.production \
+  -d \
+  -p 8000:3000 \
+  $TAG

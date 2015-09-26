@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+NAME=keep-delivering-com
+docker exec -it $NAME bin/rake db:create db:migrate

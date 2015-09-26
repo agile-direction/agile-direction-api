@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+mkdir -p /keep-delivering/docker/nginx/certs
+mkdir -p /keep-delivering/docker/postgres/data

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+TAG="keep-delivering-nginx:$(git rev-parse HEAD)"
+docker build -t $TAG nginx
