@@ -13,7 +13,7 @@
     $('ul#deliverables li.deliverable').each(function(index, deliverableList) {
       var elementHoldingEstimate = $(deliverableList).find('.timestop .count');
       $(deliverableList).find('li.requirement').each(function(index, requirementLi) {
-        if ($(requirementLi).data('state') != 'completed') {
+        if ($(requirementLi).data('state') !== 'completed') {
           totalTime += parseInt($(requirementLi).data('estimate'));
         }
       });
@@ -43,23 +43,26 @@
     var requirements = Array.prototype.reduce.call($(deliverableUl).find('li'), function(previousValue, currentValue) {
       return previousValue.concat({ id: $(currentValue).data('id') });
     }, []);
-    if (requirements.length == 0) return;
+
+    if (requirements.length === 0) {
+      return;
+    }
 
     var missionId = missionUl.data('id');
     var deliverableId = $(deliverableUl).data("id");
 
-    var url = `/missions/${missionId}/deliverables/${deliverableId}/order_requirements`;
-    var data = { requirements: requirements }
+    var url = '/missions/' + missionId + '/deliverables/' + deliverableId + '/order_requirements';
+    var data = { requirements: requirements };
     request(url, data);
   };
 
   var updateOrderOfDeliverables = function(missionUl) {
     var missionId = $(missionUl).data('id');
     var deliverables = Array.prototype.reduce.call(missionUl.children, function(previousValue, currentValue) {
-      return previousValue.concat({ id: currentValue.dataset.id })
-    }, [])
+      return previousValue.concat({ id: currentValue.dataset.id });
+    }, []);
 
-    var url = `/missions/${missionId}/order_deliverables`;
+    var url = '/missions/' + missionId + '/order_deliverables';
     var data = { deliverables: deliverables };
     request(url, data);
   };

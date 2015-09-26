@@ -1,14 +1,8 @@
 cache:
   bundler: true
-  directories:
-    - agile-direction-ui/node_modules
-    - agile-direction-ui/bower_components
-
-before_install:
-  - "npm config set spin false"
 
 script: >
-  DATABASE_URL=postgres://localhost/agile_direction_ci
+  DATABASE_URL=postgres://localhost/keep-delivering-ci
   HEADLESS=true
   RACK_ENV=test
   bin/rake db:create test
