@@ -13,7 +13,7 @@ Cucumber::Rails::Database.javascript_strategy = :truncation
 
 Capybara.app = Builders::FULL_STACK
 
-headless = (ENV["HEADLESS"] == "true")
+headless = (ENV["BROWSER"] != "true")
 if headless
   Capybara.register_driver(:poltergeist) do |app|
     driver = Capybara::Poltergeist::Driver.new(app, {

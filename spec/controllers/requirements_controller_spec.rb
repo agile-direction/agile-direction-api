@@ -78,7 +78,7 @@ RSpec.describe(RequirementsController, { type: :controller }) do
         requirement: Generator.requirement.attributes
       }))
       expect(response).to redirect_to(mission_path(@mission, {
-        anchor: latest_requirement.to_param
+        anchor: latest_requirement.deliverable.to_param
       }))
     end
 
@@ -171,7 +171,7 @@ RSpec.describe(RequirementsController, { type: :controller }) do
     it "redirects to the mission" do
       put(:update, @route_params.merge({ id: @requirement.id, requirement: { name: Faker::Name.name } }))
       expect(response).to redirect_to(mission_path(@mission, {
-        anchor: latest_requirement.to_param
+        anchor: latest_requirement.deliverable.to_param
       }))
     end
 
@@ -184,7 +184,7 @@ RSpec.describe(RequirementsController, { type: :controller }) do
     it "allows anyone for unowned missions" do
       put(:update, @route_params.merge({ id: @requirement.id, requirement: { name: Faker::Name.name } }))
       expect(response).to redirect_to(mission_path(@mission, {
-        anchor: latest_requirement.to_param
+        anchor: latest_requirement.deliverable.to_param
       }))
     end
 
@@ -194,7 +194,7 @@ RSpec.describe(RequirementsController, { type: :controller }) do
         put(:update, @route_params.merge({ id: @requirement.id, requirement: { name: Faker::Name.name } }))
       end
       expect(response).to redirect_to(mission_path(@mission, {
-        anchor: latest_requirement.to_param
+        anchor: latest_requirement.deliverable.to_param
       }))
     end
 

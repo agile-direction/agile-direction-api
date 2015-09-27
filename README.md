@@ -21,6 +21,7 @@ brew install chromedriver postgresql
 bin/rake db:create db:migrate db:seed
 RACK_ENV=test bin/rake db:create
 bin/rake test
+BROWSER=true bin/cucumber # run cucumbers in browser
 ```
 
 ## Ways to Run the App

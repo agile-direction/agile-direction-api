@@ -88,7 +88,7 @@ class RequirementsController < ApplicationController
   end
 
   def success_redirect_path(requirement)
-    mission_path(requirement.mission, { anchor: requirement.to_param })
+    mission_path(requirement.mission, { anchor: requirement.deliverable.to_param })
   end
 
   def find_deliverable
