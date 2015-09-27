@@ -79,8 +79,8 @@ en:
         one: "%{number_of_weeks} week"
         other: "%{number_of_weeks} weeks"
       requirement:
-        start_html: "%{icon} Start"
-        finish_html: "%{icon} Finish"
+        start_html: "%{icon} (Start)"
+        finish_html: "%{icon} (Finish)"
       clone:
         title: Cloning
         description: Ready to do this again, or ready to try someone else's Mission?
