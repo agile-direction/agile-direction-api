@@ -26,7 +26,7 @@ bin/rake test
 ## Ways to Run the App
 
 ```
-bin/spring rails server # live reloads, port 9393
+bin/spring rails server # live reloads, port 3000
 bin/foreman start # performant, port 5000
 ```
 
