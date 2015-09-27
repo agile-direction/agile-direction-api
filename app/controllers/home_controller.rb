@@ -3,11 +3,6 @@ class HomeController < ApplicationController
 
   def index
     @mission_count = Mission.count
-    @missions = Mission
-      .select(:name)
-      .where({ public: true })
-      .order({ updated_at: :desc })
-      .limit(MISSION_LIMIT)
   end
 
   def glossary

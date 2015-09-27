@@ -161,6 +161,28 @@ en:
           value: "Value: Inspire Michael Jackson to create the Moonwalk"
 
     index:
+      examples:
+        - "Remodel Kitchen"
+        - "Chicago Marathon"
+        - "Launch Celebrasy (v1)"
+        - "Go to the Moon"
+        - "Q1 Objectives"
+        - "Move Apartements"
+        - "Move (clone)"
+        - "New Year's Eve Party"
+        - "Skyfall"
+        - "Keep Delivering v2"
+        - "June"
+        - "Workout"
+        - "Apple Watch App"
+        - "Learn French"
+        - "Watch Every Best Picture Movie"
+        - "Redecorate the Bedroom"
+        - "Sunday Dinner Party"
+        - "Clean Out the Garage"
+        - "Build a New Kitchen Table"
+        - "Make Thermostat Out of Raspberry Pi"
+        - "Holiday Festivities"
       mission-happening_html: "'%{mission_name_tag}'"
       take-a-look: Take a look at what people are working on right now.
       description:

@@ -3,25 +3,12 @@
 
   var startTyping = function() {
     $('#mission-name').typed({
-      strings: missionNames
+      strings: I18n.t('home.index.examples')
     });
-  };
-
-  var typeMissionNames = function(missions) {
-    missions.reduce(function(collection, mission) {
-      collection.push(mission.name);
-      return missionNames;
-    }, missionNames);
-    startTyping();
   };
 
   var ready = function() {
-    $.ajax({
-      url: '/missions',
-      dataType: 'json'
-    }).then(function(data) {
-      typeMissionNames(data.missions);
-    });
+    startTyping();
   };
 
   $(document).ready(ready);

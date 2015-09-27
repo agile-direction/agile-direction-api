@@ -16,7 +16,7 @@
 
 %section#mission-count.contrast
   #mission-count-background
-    = @missions.collect(&:name).to_sentence
+    = (t(".examples").shuffle * 2).to_sentence
   #mission-count-foreground
     %h2= t("home.index.active-missions_html", { count: @mission_count })
     = link_to(t(".take-a-look"), missions_path)
