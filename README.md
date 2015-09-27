@@ -1,4 +1,7 @@
-# Keep Delivering
+<h1>
+  <img height="40" alt="keep-delivering" src="https://cloud.githubusercontent.com/assets/96204/10121548/71f8f330-64b7-11e5-8586-f700fb2d3938.png" />
+  Keep Delivering
+</h1>
 
 [![Join the chat at https://gitter.im/keep-delivering/com](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/keep-delivering/com?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
