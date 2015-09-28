@@ -1,5 +1,3 @@
-/* Backgrounds taken from http://lea.verou.me/css3patterns/#argyle */
-
 html,
 body {
   min-height: 100%;
@@ -290,45 +288,6 @@ footer {
 .underline {
   border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
   margin-bottom: 4px;
-}
-
-ul#deliverables li {
-  position: relative;
-}
-
-ul#deliverables .timestop {
-  position: absolute;
-  right: 100%;
-  width: 200px;
-  text-align: right;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-ul#deliverables li.deliverable {
-  padding-left: 20px;
-  position: relative;
-}
-
-ul#deliverables .deliverable_handle,
-ul#deliverables .requirement_handle {
-  opacity: 0.4;
-  cursor: move;
-  display: block;
-  width: 20px;
-  text-align: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-ul.requirements li {
-  position: relative;
-  padding-left: 20px
-}
-
-ul.requirements {
-  min-height: 1em;
-  font-size: 0.8em;
 }
 
 ul {

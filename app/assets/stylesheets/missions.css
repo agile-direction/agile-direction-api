@@ -1,0 +1,92 @@
+ul#deliverables,
+ul.requirements {
+  list-style-type: none;
+}
+
+ul#deliverables {
+  margin: 0;
+  padding: 0;
+}
+
+ul#deliverables li {
+  position: relative;
+}
+
+ul#deliverables li.deliverable {
+}
+
+ul#deliverables li.deliverable .expand,
+ul#deliverables li.deliverable .collapse {
+  float: right;
+  padding: 0 1em;
+  border: none;
+}
+
+ul#deliverables li.deliverable ul.requirements {
+  min-height: 1em;
+  font-size: 0.8em;
+  margin: 0;
+  padding: 0;
+  margin-left: 1px;
+}
+
+ul#deliverables li.deliverable ul.requirements li {
+  position: relative;
+  padding-left: 1em;
+}
+
+ul#deliverables li.deliverable ul.requirements li .requirement-state {
+  padding: 0 1em;
+  border: none;
+  float: right;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  width: 2em;
+  text-align: center;
+}
+
+ul#deliverables .deliverable_handle,
+ul#deliverables .requirement_handle {
+  opacity: 0.4;
+  cursor: move;
+  display: block;
+  width: 20px;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+
+ul#deliverables li.deliverable .timestop {
+  padding-left: 1em;
+}
+
+.focus-area {
+  padding-left: 2em;
+  position: relative;
+  margin-top: 1px;
+}
+
+.focus-area:focus {
+  border: 1px solid rgba(255, 255, 255, 0);
+}
+
+ul#deliverables .focus-area {
+}
+
+ul#deliverables .focus-area.add-requirement,
+#page a.focus-area.add-deliverable {
+  padding-left: 0;
+}
+
+ul#deliverables .focus-area.add-requirement {
+  margin-left: 1em;
+  margin-top: 1px;
+  display: block;
+}
+
+#page a.action.focus-area.add-deliverable {
+  display: block;
+}

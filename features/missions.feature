@@ -11,7 +11,7 @@ Feature: Missions
   Scenario: I should be able to create a Mission
     When I create a mission
     Then I see that mission
-      And I should be prompted to "add deliverable"
+      And I should be prompted to "Add Deliverable"
 
   Scenario: I should be able to update a Mission
     When I update a mission

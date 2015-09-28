@@ -29,41 +29,50 @@
   - if @mission.deliverables.any?
     %ul#deliverables{ "data-id" => @mission.id }
       - @mission.deliverables.each do |deliverable|
-        - expandClass = (deliverable.requirements.any? && deliverable.requirements.all?(&:completed?)) ? 'collapsed' : ''
+        - is_completed = (deliverable.requirements.any? && deliverable.requirements.all?(&:completed?))
+        - expandClass = is_completed ? 'collapsed' : ''
         %li.deliverable.expandable{ class: expandClass, id: deliverable.to_param, "data-id" => deliverable.id }
-          %span.deliverable_handle= t("icons.handle_html")
-          = link_to(deliverable.name, edit_mission_deliverable_path(@mission, deliverable))
-          = link_to(t("icons.expand.down_html"), "#", { class: "expand", title: t("icons.expand.title_html") })
-          = link_to(t("icons.collapse.up_html"), "#", { class: "collapse", title: t("icons.collapse.title_html") })
-          %span.subnote= deliverable.value
+          - color_class = is_completed ? "colors work-completed" : "colors work"
+          .focus-area.deliverable{ class: color_class }
+            %span.deliverable_handle= t("icons.handle_html")
+            = link_to(deliverable.name, edit_mission_deliverable_path(@mission, deliverable))
+            = link_to(t("icons.expand.down_html"), "#", { class: "expand", title: t("icons.expand.title_html") })
+            = link_to(t("icons.collapse.up_html"), "#", { class: "collapse", title: t("icons.collapse.title_html") })
+            %span.subnote= deliverable.value
           %ul.requirements.expandee{ "data-id" => deliverable.id }
             - deliverable.requirements.each do |requirement|
               - unless requirement.completed?
                 - total_time += requirement.estimate.to_i
               %li.requirement{ id: requirement.to_param, "data-id" => requirement.id, "data-estimate" => requirement.estimate, "data-state" => requirement.status }
-                %span.requirement_handle= t("icons.handle_html")
-                = link_to(requirement.name, edit_mission_deliverable_requirement_path(@mission,deliverable, requirement), { class: "inline" })
-                - if requirement.created?
-                  - path = mission_deliverable_requirement_path(@mission, deliverable, requirement, { requirement: { status: Requirement::STATUSES[:started] } })
-                  - text = t(".requirement.start_html", { icon: t("icons.ready_html") })
-                  = link_to(text, path, { method: :put, title: "Start" })
-                - elsif requirement.started?
-                  - path = mission_deliverable_requirement_path(@mission, deliverable, requirement, { requirement: { status: Requirement::STATUSES[:completed] } })
-                  - text = t(".requirement.finish_html", { icon: t("icons.actioning_html") })
-                  = link_to(text, path, method: :put, title: "Finish")
-                - unless requirement.description.blank?
-                  %br
-                  %span.requirement-description= requirement.description
+                - color_class = requirement.completed? ?  "colors work-completed" : "colors work"
+                .focus-area{ class: color_class }
+                  %span.requirement_handle= t("icons.handle_html")
+                  - if requirement.created?
+                    - path = mission_deliverable_requirement_path(@mission, deliverable, requirement, { requirement: { status: Requirement::STATUSES[:started] } })
+                    - text = t(".requirement.start_html", { icon: t("icons.ready_html") })
+                    = link_to(text, path, { method: :put, class: "requirement-state", title: "Start" })
+                  - elsif requirement.started?
+                    - path = mission_deliverable_requirement_path(@mission, deliverable, requirement, { requirement: { status: Requirement::STATUSES[:completed] } })
+                    - text = t(".requirement.finish_html", { icon: t("icons.actioning_html") })
+                    = link_to(text, path, { class: "requirement-state", method: :put, title: "Finish" })
+                  = link_to(requirement.name, edit_mission_deliverable_requirement_path(@mission,deliverable, requirement), { class: "inline" })
+                  - unless requirement.description.blank?
+                    %br
+                    %span.requirement-description= requirement.description
+            - options = { class: "focus-area add-requirement", title: t("missions.show.add-requirement") }
+            = link_to(new_mission_deliverable_requirement_path(@mission, deliverable), options) do
+              = t("missions.show.add-requirement_html", { arrow: t("icons.arrow_html") })
+
             %span.timestop
               - count = total_time.fdiv(7).ceil
               - count_tag = content_tag(:span, count, { class: "count" })
               = t(".timestop_html", { number_of_weeks: count_tag, count: count })
-            = link_to(new_mission_deliverable_requirement_path(@mission, deliverable), { title: t("missions.show.add-requirement") }) do
-              = t("missions.show.add-requirement_html", { arrow: t("icons.arrow_html") })
+
   - else
     %p= t("missions.show.now-what_html", { mission_name: @mission.name })
 
-  = link_to(new_mission_deliverable_path(@mission), { title: t("missions.show.add-deliverable") }) do
+  - options = { class: "focus-area add-deliverable", title: t("missions.show.add-deliverable") }
+  = link_to(new_mission_deliverable_path(@mission), options) do
     = t("missions.show.add-deliverable_html", { arrow: t("icons.arrow_html") })
 
 %section#participants

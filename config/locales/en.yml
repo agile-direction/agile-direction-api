@@ -67,20 +67,20 @@ en:
       now-what_html:
         Awesome, so you're working on '%{mission_name}',
         what are some things that will add valuable impact in accomplishing that?
-      add-deliverable_html: "%{arrow} add deliverable"
+      add-deliverable_html: "%{arrow} Add Deliverable"
       add-deliverable: Add Deliverable
-      add-requirement_html: "%{arrow} add requirement"
+      add-requirement_html: "%{arrow} Add Requirement"
       add-requirement: Add Requirement
       participants: Participants
       add-participant: Add Participant
-      add-participant_html: "%{arrow} add participant"
+      add-participant_html: "%{arrow} Add Participant"
       timestop_html:
         zero: "%{number_of_weeks} weeks"
         one: "%{number_of_weeks} week"
         other: "%{number_of_weeks} weeks"
       requirement:
-        start_html: "%{icon} (Start)"
-        finish_html: "%{icon} (Finish)"
+        start_html: "%{icon}"
+        finish_html: "%{icon}"
       clone:
         title: Cloning
         description: Ready to do this again, or ready to try someone else's Mission?
@@ -122,6 +122,7 @@ en:
       swatches: Swatches
       swatch:
         action: Actions
+        action-alternative: Action (Alternative)
         work: Work
         work-completed: Work (Completed)
       icons:
