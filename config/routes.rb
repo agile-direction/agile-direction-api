@@ -30,12 +30,6 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :api do
-    namespace :v1 do
-      resources :missions
-    end
-  end
-
   get("/auth", { to: "omniauth#authenticate" })
   put("/logout", { to: "omniauth#logout" })
 
