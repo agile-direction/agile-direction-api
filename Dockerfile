@@ -18,5 +18,5 @@ RUN bundle install
 
 ADD . /usr/src/app
 
-EXPOSE 3000
-CMD ["bin/rails", "server", "-b", "0.0.0.0"]
+EXPOSE 9292
+CMD ["bin/rails", "server", "-p", "9292", "-b", "0.0.0.0"]

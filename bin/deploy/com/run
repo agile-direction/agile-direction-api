@@ -11,5 +11,5 @@ docker run \
   --link keep-delivering-db:postgres \
   --env-file .env.production \
   -d \
-  -p 8000:3000 \
+  -p 8000:9292 \
   $TAG
