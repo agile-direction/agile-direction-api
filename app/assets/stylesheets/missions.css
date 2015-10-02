@@ -15,10 +15,8 @@ ul#deliverables li {
 ul#deliverables li.deliverable {
 }
 
-ul#deliverables li.deliverable .expand,
-ul#deliverables li.deliverable .collapse {
+ul#deliverables li.deliverable .toggle-expand {
   float: right;
-  padding: 0 1em;
   border: none;
 }
 
@@ -36,7 +34,6 @@ ul#deliverables li.deliverable ul.requirements li {
 }
 
 ul#deliverables li.deliverable ul.requirements li .requirement-state {
-  padding: 0 1em;
   border: none;
   float: right;
   bottom: 0;
@@ -65,12 +62,16 @@ ul#deliverables li.deliverable .timestop {
 
 .focus-area {
   padding-left: 2em;
+  padding-right: 1em;
   position: relative;
   margin-top: 1px;
+  border: 1px solid rgba(255, 255, 255, 0);
 }
 
 .focus-area:focus {
-  border: 1px solid rgba(255, 255, 255, 0);
+  outline: none;
+  background-color: rgba(0, 50, 100, 1) !important;
+  /* background-color: rgba(166, 120, 3, 1) !important; */
 }
 
 ul#deliverables .focus-area {
@@ -81,13 +82,13 @@ ul#deliverables .focus-area.add-requirement,
   padding-left: 0;
 }
 
-ul#deliverables .focus-area.add-requirement {
+ul#deliverables .add-requirement {
   margin-left: 1em;
   margin-top: 1px;
   display: block;
 }
 
-#page a.action.focus-area.add-deliverable {
+#page a.action.add-deliverable {
   display: block;
 }
 

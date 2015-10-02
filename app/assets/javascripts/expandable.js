@@ -9,8 +9,7 @@
   var ready = function() {
     $('.expandable').each(function(index, ui) {
       var expandableElement = $(ui);
-      expandableElement.find('.expand').eq(0).on('click', handleClick);
-      expandableElement.find('.collapse').eq(0).on('click', handleClick);
+      expandableElement.find('.toggle-expand').eq(0).on('click', handleClick);
     });
   }
 
