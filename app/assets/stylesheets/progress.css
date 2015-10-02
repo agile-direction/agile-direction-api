@@ -2,40 +2,33 @@
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-.progress-created {
-  color: rgba(255, 255, 255, 0.2);
-}
-
 .progress-started .progress-bar {
   background-color: rgba(166, 120, 3, 1);
-}
-
-.progress-started  {
-  color: rgba(166, 120, 3, 1);
 }
 
 .progress-completed .progress-bar {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.progress-completed {
-  color: rgba(255, 255, 255, 0.1);
-}
-
 .progress {
+  padding: 0.2em;
   line-height: 1em;
+  margin-bottom: 1px;
+  position: relative;
 }
 
 .progress-bar {
-  height: 0.2em;
-  background-color: pink;
+  position: absolute;
+  height: 1px;
+  left: 0;
+  bottom: 0;
   width: 0%;
-  max-width: 80%;
   min-width: 2%;
-  display: inline-block;
-  margin-bottom: 0.2em;
+  z-index: 1;
 }
 
 .progress-description {
-  display: inline-block;
+  position: relative;
+  z-index: 2;
+  font-size: 0.8em;
 }

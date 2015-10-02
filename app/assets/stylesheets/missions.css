@@ -90,3 +90,19 @@ ul#deliverables .focus-area.add-requirement {
 #page a.action.focus-area.add-deliverable {
   display: block;
 }
+
+#participants {
+  padding: 0;
+}
+
+.participant {
+  display: block;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.2em 1em;
+  margin-bottom: 1px;
+}
+
+.participant a {
+  float: right;
+  border: none;
+}

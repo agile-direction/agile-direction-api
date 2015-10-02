@@ -15,7 +15,8 @@
     = f.text_field(:description)
 
   .fill-me-in
-    = f.check_box(:public, { checked: true })
+    - default = @mission.public.nil? ? true : @mission.public
+    = f.check_box(:public, { checked: default })
     = f.label(:public)
 
   .actions

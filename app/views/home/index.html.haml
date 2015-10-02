@@ -12,7 +12,8 @@
     - mission_link = link_to(t("home.index.description.mission_link"), glossary_path({ anchor: :mission }))
     - deliverable_link = link_to(t("home.index.description.deliverable_link"), glossary_path({ anchor: :deliverable }))
     = t("home.index.description.text_html", { mission_link: mission_link, deliverable_link: deliverable_link })
-  = link_to(t("home.index.create_a_mission_html"), new_mission_path, { class: "action" })
+  - icon = t("icons.actioning_html")
+  = link_to(t("home.index.create_a_mission_html", { icon: icon }), new_mission_path, {})
 
 %section#mission-count.contrast
   #mission-count-background

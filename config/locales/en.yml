@@ -3,10 +3,10 @@ en:
     arrow_html: "&#x029BE;"
     actioning_html: "&#x029BE;"
     completed_html: "&ofcir;"
-    delete_html: "&otimes;"
+    delete_html: "&timesb;"
     ready_html: "&cir;"
     handle_html: "&vellip;"
-    x_html: "&#10683;"
+    x_html: "&timesb;"
     expand:
       title_html: "&caron; Expand"
       down_html: "&caron;"
@@ -56,7 +56,7 @@ en:
 
   missions:
     index:
-      add-one_html: "%{icon} Add a Mission for yourself"
+      add-one_html: "%{icon} Add a Mission for Yourself"
       title: Missions Being Worked on Right Now
     new:
       description:
@@ -193,7 +193,7 @@ en:
           just clone it and keep moving.
         mission_link: mission
         deliverable_link: deliverables
-      create_a_mission_html: "Begin a Mission"
+      create_a_mission_html: "%{icon} Begin a Mission"
       active-missions_html: "%{count}&nbsp;&nbsp;Active Missions"
 
   footer:

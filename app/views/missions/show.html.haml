@@ -1,12 +1,11 @@
 - progress = @mission.status
 - total_time = progress.values.sum
 - if total_time > 0
-  .progress
-    - progress.each do |(status, time)|
-      - percent = (time.fdiv(total_time) * 100)
-      %div{ class: "progress-#{status}" }
-        .progress-description= status
-        .progress-bar{ class: status, "data-percent" => percent  }
+  - progress.each do |(status, time)|
+    - percent = (time.fdiv(total_time) * 100)
+    .progress{ class: "progress-#{status}" }
+      .progress-description= status
+      .progress-bar{ class: status, "data-percent" => percent  }
 
 %section
   .right= link_to(t("actions.edit"), edit_mission_path(@mission))
@@ -56,6 +55,7 @@
                     - text = t(".requirement.finish_html", { icon: t("icons.actioning_html") })
                     = link_to(text, path, { class: "requirement-state", method: :put, title: "Finish" })
                   = link_to(requirement.name, edit_mission_deliverable_requirement_path(@mission,deliverable, requirement), { class: "inline" })
+                  %span.superscript= requirement.estimate
                   - unless requirement.description.blank?
                     %br
                     %span.requirement-description= requirement.description
@@ -78,11 +78,12 @@
 %section#participants
   %h3= t("missions.show.participants")
 
-  %ul
+  %ul#participants
     - @participants.each do |participant|
-      %li
+      %li.participant
         = participant.user.name
-        = link_to(t("icons.x_html"), mission_participant_path(@mission, participant), { method: :delete })
+        - options = { method: :delete, title: t("actions.delete") }
+        = link_to(t("icons.x_html"), mission_participant_path(@mission, participant), options)
 
   = link_to(new_mission_participant_path(@mission), { title: t("missions.show.add-participant") }) do
     = t("missions.show.add-participant_html", { arrow: t("icons.arrow_html") })

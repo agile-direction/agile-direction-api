@@ -15,9 +15,11 @@
         });
       }
     }).data("ui-autocomplete")._renderItem = function(ul, item) {
+      var li = $('<li>', { class: 'autocomplete-result' });
       var link = $('<a>', { href: '#' });
       link.html(item.name);
-      return link.appendTo(ul);
+      link.appendTo(li);
+      return li.appendTo(ul);
     };
   };
 
