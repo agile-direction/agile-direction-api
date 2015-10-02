@@ -7,6 +7,10 @@ input,
 select {
   font-family: 'Open Sans Condensed', sans-serif;
   font-size: 1em;
+}
+
+input[type=text],
+input[type=submit] {
   border-radius: 0;
   -webkit-appearance: none;
 }
