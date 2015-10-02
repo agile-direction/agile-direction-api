@@ -7,12 +7,8 @@ en:
     ready_html: "&cir;"
     handle_html: "&vellip;"
     x_html: "&timesb;"
-    expand:
-      title_html: "&caron; Expand"
-      down_html: "&caron;"
-    collapse:
-      title_html: "&circ; Collapse"
-      up_html: "&circ;"
+    toggle-expand-title_html: "%{icon} Toggle Expand"
+    toggle-expand_html: "&cong;"
 
   shared:
     pagination:

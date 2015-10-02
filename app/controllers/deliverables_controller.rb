@@ -99,7 +99,9 @@ class DeliverablesController < ApplicationController
   end
 
   def success_redirect_path(deliverable)
-    mission_path(deliverable.mission, { anchor: deliverable.to_param })
+    mission_path(deliverable.mission, {
+      focus: deliverable.id
+    })
   end
 
   def set_deliverable
