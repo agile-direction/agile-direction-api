@@ -74,6 +74,10 @@ ul#deliverables li.deliverable .timestop {
   /* background-color: rgba(166, 120, 3, 1) !important; */
 }
 
+.focus-area.selected:focus {
+  background-color: rgba(166, 120, 3, 1) !important;
+}
+
 ul#deliverables .focus-area {
 }
 

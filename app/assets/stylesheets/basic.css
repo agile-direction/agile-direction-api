@@ -36,7 +36,7 @@ body {
   background-color: rgba(0, 50, 100, 1);
 }
 
-body.loading {
+body.error {
   background-color: rgba(37, 1, 1, 1);
 }
 
@@ -192,12 +192,12 @@ nav h1 a {
   z-index: 8;
 }
 
-.flash#notice {
+.flash.notice {
   background-color: rgba(255, 255, 255, 0.6);
   color: rgba(8, 1, 46, 1);
 }
 
-.flash#alert {
+.flash.alert {
   background-color: rgba(105, 0, 0, 0.6);
   color: rgba(255, 255, 255, 0.6);
 }

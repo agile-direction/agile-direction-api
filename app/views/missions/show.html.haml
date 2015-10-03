@@ -39,28 +39,29 @@
             - title = t("icons.toggle-expand-title_html", { icon: t("icons.toggle-expand_html") })
             = link_to(t("icons.toggle-expand_html"), "#", { "data-command" => "space", class: "toggle-expand", title: title })
             %span.subnote= deliverable.value
-          %ul.requirements.expandee{ "data-id" => deliverable.id }
-            - deliverable.requirements.each do |requirement|
-              - unless requirement.completed?
-                - total_time += requirement.estimate.to_i
-              %li.requirement{ id: requirement.to_param, "data-id" => requirement.id, "data-estimate" => requirement.estimate, "data-state" => requirement.status }
-                - color_class = requirement.completed? ?  "colors work-completed" : "colors work"
-                .focus-area{ class: color_class, tabindex: -1 }
-                  %span.requirement_handle= t("icons.handle_html")
-                  - if requirement.created?
-                    - path = mission_deliverable_requirement_path(@mission, deliverable, requirement, { requirement: { status: Requirement::STATUSES[:started] } })
-                    - text = t(".requirement.start_html", { icon: t("icons.ready_html") })
-                    = link_to(text, path, { "data-command" => "enter", method: :put, class: "requirement-state", title: "Start" })
-                  - elsif requirement.started?
-                    - path = mission_deliverable_requirement_path(@mission, deliverable, requirement, { requirement: { status: Requirement::STATUSES[:completed] } })
-                    - text = t(".requirement.finish_html", { icon: t("icons.actioning_html") })
-                    = link_to(text, path, { "data-command" => "enter", class: "requirement-state", method: :put, title: "Finish" })
-                  - options = { "data-command" => "c" }
-                  = link_to(requirement.name, edit_mission_deliverable_requirement_path(@mission,deliverable, requirement), options)
-                  %span.superscript= requirement.estimate
-                  - unless requirement.description.blank?
-                    %br
-                    %span.requirement-description= requirement.description
+          .expandee
+            %ul.requirements{ "data-id" => deliverable.id }
+              - deliverable.requirements.each do |requirement|
+                - unless requirement.completed?
+                  - total_time += requirement.estimate.to_i
+                %li.requirement{ id: requirement.to_param, "data-id" => requirement.id, "data-estimate" => requirement.estimate, "data-state" => requirement.status }
+                  - color_class = requirement.completed? ?  "colors work-completed" : "colors work"
+                  .focus-area{ class: color_class, tabindex: -1 }
+                    %span.requirement_handle= t("icons.handle_html")
+                    - if requirement.created?
+                      - path = mission_deliverable_requirement_path(@mission, deliverable, requirement, { requirement: { status: Requirement::STATUSES[:started] } })
+                      - text = t(".requirement.start_html", { icon: t("icons.ready_html") })
+                      = link_to(text, path, { "data-command" => "s", method: :put, class: "requirement-state", title: "Start" })
+                    - elsif requirement.started?
+                      - path = mission_deliverable_requirement_path(@mission, deliverable, requirement, { requirement: { status: Requirement::STATUSES[:completed] } })
+                      - text = t(".requirement.finish_html", { icon: t("icons.actioning_html") })
+                      = link_to(text, path, { "data-command" => "f", class: "requirement-state", method: :put, title: "Finish" })
+                    - options = { "data-command" => "i" }
+                    = link_to(requirement.name, edit_mission_deliverable_requirement_path(@mission,deliverable, requirement), options)
+                    %span.superscript= requirement.estimate
+                    - unless requirement.description.blank?
+                      %br
+                      %span.requirement-description= requirement.description
             - options = { "data-command" => "o", class: "add-requirement", title: t("missions.show.add-requirement") }
             = link_to(new_mission_deliverable_requirement_path(@mission, deliverable), options) do
               = t("missions.show.add-requirement_html", { arrow: t("icons.arrow_html") })

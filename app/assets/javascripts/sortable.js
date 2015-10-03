@@ -1,10 +1,14 @@
 (function() {
   var ui = {
     doingThings: function() {
-      $('body').addClass('loading');
+      // $('body').addClass('loading');
     },
     doneWithThings: function() {
-      $('body').removeClass('loading');
+      // $('body').removeClass('loading');
+    },
+    error: function() {
+      var message = I18n.t('actions.ajax-failed');
+      Flasher.alert(message);
     }
   };
 
@@ -33,12 +37,13 @@
       accepts: 'application/json',
       complete: function(_response, _textStatus) {
         ui.doneWithThings();
-      }
+      },
+      error: ui.error
     });
   };
 
   var updateOrderOfRequirements = function(deliverableUl) {
-    var missionUl = $(deliverableUl).parent().parent();
+    var missionUl = $(deliverableUl).parents('ul');
 
     var requirements = Array.prototype.reduce.call($(deliverableUl).find('li'), function(previousValue, currentValue) {
       return previousValue.concat({ id: $(currentValue).data('id') });
