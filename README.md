@@ -54,7 +54,7 @@ heroku git:remote -a keepdelivering
 ### Deploy
 
 ```
-bin/deploy
+bin/heroku/deploy
 ```
 
 ### Migrations
