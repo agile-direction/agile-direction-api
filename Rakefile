@@ -15,10 +15,10 @@ if %w(development test).include?(Rails.env)
   end
 
   task(:audit_dependencies) do
-    system("bundle-audit") || exit
+    system("bin/bundle-audit") || exit
   end
 
-  task({ test: %w(rspec features rubocop audit_dependencies) })
+  task({ test: %w(rspec teaspoon features rubocop audit_dependencies) })
 end
 
 Rails.application.load_tasks

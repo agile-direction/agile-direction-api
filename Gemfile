@@ -13,6 +13,7 @@ gem("omniauth-twitter")
 gem("pg")
 gem("rack-cors")
 gem("rails", "4.2.1")
+gem("sprockets-es6")
 gem("turbolinks")
 
 group(:production) do
@@ -33,11 +34,13 @@ group(:development, :test) do
   gem("guard")
   gem("guard-rails", { require: false })
   gem("guard-rspec", { require: false })
+  gem("guard-teaspoon")
   gem("i18n-tasks")
   gem("render")
   gem("rspec-rails", "~> 3.0")
   gem("shotgun")
   gem("spring")
+  gem("teaspoon-jasmine")
   gem("web-console", "~> 2.0")
 end
 

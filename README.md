@@ -12,7 +12,7 @@
 ## Dependencies
 
 ```
-brew install chromedriver postgresql
+brew install chromedriver postgresql phantomjs
 ```
 
 ## Setup
@@ -21,7 +21,6 @@ brew install chromedriver postgresql
 bin/rake db:create db:migrate db:seed
 RACK_ENV=test bin/rake db:create
 bin/rake test
-BROWSER=true bin/cucumber # run cucumbers in browser
 ```
 
 ## Ways to Run the App
@@ -29,6 +28,17 @@ BROWSER=true bin/cucumber # run cucumbers in browser
 ```
 bin/spring rails server # live reloads, port 3000
 bin/foreman start # performant, port 5000
+```
+
+## Ways to Test the App
+
+```
+bin/rspec # unit
+bin/teaspoon # javascript
+bin/cucumber # acceptance
+BROWSER=true bin/cucumber # run acceptance in browser
+bin/rubocop # syntax
+bin/bundle-audit # gem security
 ```
 
 ## Remote
