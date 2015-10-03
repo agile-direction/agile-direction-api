@@ -62,6 +62,9 @@
                     - unless requirement.description.blank?
                       %br
                       %span.requirement-description= requirement.description
+                    - path = mission_deliverable_requirement_path(@mission, deliverable, requirement)
+                    - options = { method: :delete, data: { command: 'D', confirm: t("flashes.destroy.are-you-sure") } }
+                    = link_to("", path, options)
             - options = { "data-command" => "o", class: "add-requirement", title: t("missions.show.add-requirement") }
             = link_to(new_mission_deliverable_requirement_path(@mission, deliverable), options) do
               = t("missions.show.add-requirement_html", { arrow: t("icons.arrow_html") })

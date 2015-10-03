@@ -3,6 +3,7 @@
     // enter: 13,
     d: 68,
     f: 70,
+    g: 71,
     i: 73,
     j: 74,
     k: 75,
@@ -56,13 +57,26 @@
     }
   };
 
-  var sendCommand = function(event, code) {
+  var _commandSelector = function(code) {
     var command = characterForCode(code);
     if (command === undefined) return;
     if (event.shiftKey) command = command.toUpperCase();
-    var selector = '[data-command=' + command + ']:visible';
+    return ('[data-command=' + command + ']');
+  };
+
+  var sendCommandThroughParents = function(event, code) {
+    var selector = _commandSelector(code);
     var commandElement = findThroughParents(focusedElement(), selector);
     if (commandElement) {
+      commandElement[0].click();
+      event.preventDefault();
+    };
+  };
+
+  var sendCommand = function(event, code) {
+    var selector = _commandSelector(code);
+    var commandElement = focusedElement().find(selector);
+    if (commandElement.length === 1) {
       commandElement[0].click();
       event.preventDefault();
     };
@@ -118,10 +132,21 @@
     }
   }
 
+  var previousKeys = [];
+  var maxPreviousKeys = 2;
+  var previousKeysTTL = 400;
+  var trackKeydown = function(code) {
+    previousKeys.push(code);
+    setTimeout(function() {
+      previousKeys.shift();
+    }, previousKeysTTL)
+  };
+
   var initializeKeydown = function() {
     $(document).keydown(function(event) {
       var code = (event.keyCode || event.which);
       if (event.metaKey) return;
+      trackKeydown(code);
 
       switch(code) {
         case(keys['j']):
@@ -142,9 +167,35 @@
           if (!event.shiftKey) return;
           (selectedElement) ? deselectElement() : selectElement();
           return;
+        case(keys['g']):
+          var lastTwoKeys = previousKeys.slice(Math.max(previousKeys.length - 2, 0));
+
+          if (event.shiftKey) {
+            focusedElementIndex = focusableElements().length - 1;
+            focus();
+            break;
+          }
+
+          if (lastTwoKeys.length != 2) {
+            break;
+          };
+
+          var isDoubleG = lastTwoKeys.reduce(function(isG, key) {
+            return isG && (key = keys['g'])
+          }, true);
+
+          if (isDoubleG) {
+            focusedElementIndex = 0;
+            focus();
+          };
+
+          break;
         case(keys['escape']):
           focusedElement().blur();
           deselectElement();
+          break;
+        case(keys['space']):
+          sendCommandThroughParents(event, code);
           break;
         default:
           sendCommand(event, code);
