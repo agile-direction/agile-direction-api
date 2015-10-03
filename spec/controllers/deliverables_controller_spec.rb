@@ -109,7 +109,7 @@ RSpec.describe DeliverablesController, type: :controller do
     it "redirects back to mission" do
       post(:create, { mission_id: @mission.id, deliverable: Generator.deliverable.attributes })
       expect(response).to redirect_to(mission_path(@mission, {
-        focus: latest_deliverable.id,
+        anchor: "/#{latest_deliverable.to_param}"
       }))
     end
 
@@ -180,7 +180,7 @@ RSpec.describe DeliverablesController, type: :controller do
         }
       })
       expect(response).to redirect_to(mission_path(@deliverable.mission, {
-        focus: latest_deliverable.id,
+        anchor: "/#{latest_deliverable.to_param}"
       }))
     end
 

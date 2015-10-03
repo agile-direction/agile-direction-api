@@ -16,6 +16,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def anchor_for(object)
+    { anchor: "/#{object.to_param}" }
+  end
+
   def generate_links(query, page, limit)
     {}.tap do |links|
       has_next_page = (query.count > ((page + 1) * limit))

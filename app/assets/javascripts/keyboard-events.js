@@ -192,6 +192,7 @@
           break;
         case(keys['escape']):
           focusedElement().blur();
+          clearFocusId();
           deselectElement();
           break;
         case(keys['space']):
@@ -204,32 +205,38 @@
     });
   };
 
-  // http://stackoverflow.com/questions/19491336/get-url-parameter-jquery
-  var getUrlParameter = function getUrlParameter(paramKey) {
-    var paramString = decodeURIComponent(window.location.search.substring(1));
-    paramFragments = paramString.split('&');
-    for (var i = 0; i < paramFragments.length; i++) {
-      paramAsArray = paramFragments[i].split('=');
-      if (paramAsArray[0] === paramKey) {
-        return paramAsArray[1];
-      }
-    }
-  };
+  var getFocusId = function() {
+    return window.location.hash.substring(2);
+  }
+
+  var clearFocusId = function() {
+    window.location.hash = "";
+  }
+
+  var setFocusId = function(value) {
+    return window.location.hash = ('#/' + value);
+  }
 
   var ready = function() {
     focusedElementIndex = -1;
-    var focusId = getUrlParameter('focus');
-    var selector = '#' + focusId + ' .focus-area';
-    var matches = $(selector);
-    if (matches.length >= 1) {
-      var element = matches.eq(0);
-      var index = focusableElements().index(element);
-      // wait until browser focuses on search
-      setTimeout(function() {
+    var focusId = getFocusId();
+    if (focusId != "") {
+      var selector = '#' + focusId + ' .focus-area';
+      var matches = $(selector);
+      if (matches.length >= 1) {
+        var element = matches.eq(0);
+        var index = focusableElements().index(element);
         focusedElementIndex = index;
         element.focus();
-      }, 1);
-    }
+      }
+    };
+
+    $('.focus-area').on('focusin', function(event) {
+      var parentWithId = $(event.target).parents('[data-id]');
+      var id = parentWithId.data('id');
+      setFocusId(id);
+    });
+
   };
 
   $(document).ready(initializeKeydown);

@@ -88,9 +88,7 @@ class RequirementsController < ApplicationController
   end
 
   def success_redirect_path(requirement)
-    mission_path(requirement.mission, {
-      focus: requirement.id
-    })
+    mission_path(requirement.mission, anchor_for(requirement))
   end
 
   def find_deliverable

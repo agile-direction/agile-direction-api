@@ -11,6 +11,14 @@ describe(ApplicationController, { type: :controller }) do
     end
   end
 
+  describe "#anchor_for" do
+    it "returns anchor param with object's #to_param" do
+      id = rand(10)
+      object = double(:model, { to_param: id })
+      expect(controller.anchor_for(object)).to eq({ anchor: "/#{id}" })
+    end
+  end
+
   describe "#require_user!" do
     it "does not redirect if there is a user" do
       login!(Generator.user!) do

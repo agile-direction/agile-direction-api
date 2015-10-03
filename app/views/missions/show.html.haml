@@ -34,7 +34,7 @@
           - color_class = is_completed ? "colors work-completed" : "colors work"
           .focus-area.deliverable{ class: color_class, tabindex: -1 }
             %span.deliverable_handle= t("icons.handle_html")
-            - options = { "data-command" => "c" }
+            - options = { "data-command" => "i" }
             = link_to(deliverable.name, edit_mission_deliverable_path(@mission, deliverable), options)
             - title = t("icons.toggle-expand-title_html", { icon: t("icons.toggle-expand_html") })
             = link_to(t("icons.toggle-expand_html"), "#", { "data-command" => "space", class: "toggle-expand", title: title })
