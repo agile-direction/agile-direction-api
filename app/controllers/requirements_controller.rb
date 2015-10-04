@@ -70,9 +70,7 @@ class RequirementsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        path = mission_path(@requirement.mission, {
-          anchor: @requirement.deliverable.to_param
-        })
+        path = mission_path(@requirement.mission, anchor_for(@requirement.deliverable))
         redirect_to(path, {
           notice: t("flashes.destroy.success")
         })

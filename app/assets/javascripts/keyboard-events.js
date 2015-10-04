@@ -41,7 +41,7 @@
   };
 
   var focusDown = function() {
-    if (focusedElementIndex > focusableElements().length) return;
+    if ((focusedElementIndex + 1) > focusableElements().length) return;
     focusedElementIndex++;
     focus(focusDown);
   };
@@ -142,6 +142,29 @@
     }, previousKeysTTL)
   };
 
+  var handleG = function(event) {
+    var lastTwoKeys = previousKeys.slice(Math.max(previousKeys.length - 2, 0));
+
+    if (event.shiftKey) {
+      focusedElementIndex = focusableElements().length - 1;
+      focus(focusUp);
+      return;
+    }
+
+    if (lastTwoKeys.length != 2) {
+      return;
+    };
+
+    var isDoubleG = lastTwoKeys.reduce(function(isG, key) {
+      return isG && (key = keys['g'])
+    }, true);
+
+    if (isDoubleG) {
+      focusedElementIndex = 0;
+      focus();
+    };
+  }
+
   var initializeKeydown = function() {
     $(document).keydown(function(event) {
       var code = (event.keyCode || event.which);
@@ -168,27 +191,7 @@
           (selectedElement) ? deselectElement() : selectElement();
           return;
         case(keys['g']):
-          var lastTwoKeys = previousKeys.slice(Math.max(previousKeys.length - 2, 0));
-
-          if (event.shiftKey) {
-            focusedElementIndex = focusableElements().length - 1;
-            focus();
-            break;
-          }
-
-          if (lastTwoKeys.length != 2) {
-            break;
-          };
-
-          var isDoubleG = lastTwoKeys.reduce(function(isG, key) {
-            return isG && (key = keys['g'])
-          }, true);
-
-          if (isDoubleG) {
-            focusedElementIndex = 0;
-            focus();
-          };
-
+          handleG(event);
           break;
         case(keys['escape']):
           focusedElement().blur();
@@ -197,6 +200,14 @@
           break;
         case(keys['space']):
           sendCommandThroughParents(event, code);
+          break;
+        case(keys['o']):
+          if (focusedElement().is(':focus')) {
+            sendCommandThroughParents(event, code);
+          } else {
+            var selector = _commandSelector(code);
+            $('.add-deliverable' + selector)[0].click();
+          }
           break;
         default:
           sendCommand(event, code);
@@ -210,7 +221,7 @@
   }
 
   var clearFocusId = function() {
-    window.location.hash = "";
+    window.location.hash = "/";
   }
 
   var setFocusId = function(value) {
@@ -227,7 +238,7 @@
         var element = matches.eq(0);
         var index = focusableElements().index(element);
         focusedElementIndex = index;
-        element.focus();
+        focus(focusUp);
       }
     };
 
