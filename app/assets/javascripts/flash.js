@@ -1,6 +1,6 @@
 var Flasher = {
   alert: function(message) {
-    var error = $('<p>', { class: 'flash alert' });
+    var error = $('<p>', { class: 'flash colors action alternative alert' });
     error.text(message);
     $('#flashes').append(error);
     this.setExpiration();

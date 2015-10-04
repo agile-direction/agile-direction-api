@@ -8,7 +8,7 @@ en:
     handle_html: "&vellip;"
     x_html: "&timesb;"
     toggle-expand-title_html: "%{icon} Toggle Expand"
-    toggle-expand_html: "&cong;"
+    toggle-expand_html: "&updownarrow;"
 
   shared:
     pagination:
@@ -121,6 +121,7 @@ en:
         action: Actions
         action-alternative: Action (Alternative)
         work: Work
+        work-started: Work (In-Progress)
         work-completed: Work (Completed)
       icons:
         title: Icons
@@ -181,7 +182,7 @@ en:
         - "Build a New Kitchen Table"
         - "Make Thermostat Out of Raspberry Pi"
         - "Holiday Festivities"
-      mission-happening_html: "'%{mission_name_tag}'"
+      mission-happening_html: "%{mission_name_tag}"
       take-a-look: Take a look at what people are working on right now.
       description:
         text_html:

@@ -1,12 +1,15 @@
 %section#welcome-treatment
-  %h1.logo
-    %span.keep KEEP
-    %br
-    %span.delivering DELIVERING
+  %h1
+    %span.logo
+      %span.keep KEEP
+      %br
+      %span.delivering DELIVERING
     %br
     %span#missions-happening
+      &nbsp;
       - mission_name_tag = content_tag(:span, nil, { id: "mission-name" })
       = t(".mission-happening_html", { mission_name_tag: mission_name_tag })
+      &nbsp;
 
   %p
     - mission_link = link_to(t("home.index.description.mission_link"), glossary_path({ anchor: :mission }))
@@ -15,9 +18,9 @@
   - icon = t("icons.actioning_html")
   = link_to(t("home.index.create_a_mission_html", { icon: icon }), new_mission_path, {})
 
-%section#mission-count.contrast
-  #mission-count-background
-    = (t(".examples").shuffle * 2).to_sentence
-  #mission-count-foreground
+%section#mission-count.colors.work.progress
+  #mission-count-foreground.colors.work.completed
     %h2= t("home.index.active-missions_html", { count: @mission_count })
     = link_to(t(".take-a-look"), missions_path)
+  #mission-count-background
+    = (t(".examples").shuffle * 2).to_sentence

@@ -1,10 +1,10 @@
 (function() {
-  var animationLength = 1000;
-
   var ready = function() {
-    $('.progress .progress-bar').each(function(index, element) {
+    $('.progress .progress-bar').each(function(_index, element) {
       var width = $(element).data('percent');
-      $(element).animate({ width: (width + '%') }, animationLength);
+      $(element).animate({
+        width: (width + '%')
+      })
     });
   };
 

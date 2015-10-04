@@ -1,3 +1,13 @@
+.home.styleguide #swatches {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.home.styleguide #swatches .swatch {
+  flex-grow: 1;
+}
+
 .swatch {
   padding: 1em 2em;
   margin: 0.2em;
@@ -5,25 +15,35 @@
 }
 
 .colors {
-  transition: 0.4s;
+  transition: 0.2s;
 }
 
 .colors.action {
-  background-color: rgba(166, 120, 3, 0.6);
+  background-color: rgba(160, 40, 0, 0.6);
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .colors.action:hover {
-  background-color: rgba(166, 120, 3, 1);
+  background-color: rgba(160, 40, 0, 0.9);
 }
 
-.colors.action-alternative {
-  background-color: rgba(0, 50, 100, 1);
+.colors.action.alternative {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.colors.action.alternative:hover {
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .colors.work {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(0, 50, 100, 0.15);
 }
 
-.colors.work-completed {
-  background-color: rgba(255, 255, 255, 0.1);
+.colors.work.started {
+  background-color: rgba(0, 50, 100, 0.1);
+}
+
+.colors.work.completed {
+  background-color: rgba(0, 50, 100, 0.05);
 }

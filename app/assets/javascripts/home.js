@@ -3,7 +3,8 @@
 
   var startTyping = function() {
     $('#mission-name').typed({
-      strings: I18n.t('home.index.examples')
+      strings: I18n.t('home.index.examples'),
+      cursorChar: ''
     });
   };
 

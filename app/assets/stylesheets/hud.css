@@ -1,0 +1,27 @@
+.hud {
+  position: fixed;
+  padding: 2em;
+  margin: 2em;
+  position: fixed;
+  right: 0;
+  left: 0;
+  top: 0;
+  box-shadow: 0 0 100px rgba(183, 169, 255, 0.4);
+  text-align: center;
+  z-index: 9;
+  background-color: rgba(0, 50, 100, 0.8);
+}
+
+.hud,
+.hud:focus {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+#skip_to_content.hud {
+  top: 100%;
+}
+
+#skip_to_content.hud:focus {
+  top: inherit;
+  display: inherit;
+}

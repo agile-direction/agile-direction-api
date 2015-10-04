@@ -20,5 +20,5 @@
   - unless @deliverable.new_record?
     %h3 Danger Zone
     - path = mission_deliverable_path(@deliverable.mission, @deliverable)
-    - options = { class: "action delete", method: :delete, data: { confirm: t("flashes.destroy.are-you-sure") } }
+    - options = { class: "colors action alternative delete", method: :delete, data: { confirm: t("flashes.destroy.are-you-sure") } }
     = link_to(t("actions.delete"), path, options)

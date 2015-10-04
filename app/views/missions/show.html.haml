@@ -5,7 +5,7 @@
     - percent = (time.fdiv(total_time) * 100)
     .progress{ class: "progress-#{status}" }
       .progress-description= status
-      .progress-bar{ class: status, "data-percent" => percent  }
+      .progress-bar{ class: "colors work #{status}", "data-percent" => percent  }
 
 %section
   .right= link_to(t("actions.edit"), edit_mission_path(@mission))
@@ -31,7 +31,7 @@
         - is_completed = (deliverable.requirements.any? && deliverable.requirements.all?(&:completed?))
         - expandClass = is_completed ? 'collapsed' : ''
         %li.deliverable.expandable{ class: expandClass, id: deliverable.to_param, "data-id" => deliverable.id }
-          - color_class = is_completed ? "colors work-completed" : "colors work"
+          - color_class = is_completed ? "colors work completed" : "colors work"
           .focus-area.deliverable{ class: color_class, tabindex: -1 }
             %span.deliverable_handle= t("icons.handle_html")
             - options = { "data-command" => "i" }
@@ -46,6 +46,7 @@
                   - total_time += requirement.estimate.to_i
                 %li.requirement{ id: requirement.to_param, "data-id" => requirement.id, "data-estimate" => requirement.estimate, "data-state" => requirement.status }
                   - color_class = requirement.completed? ?  "colors work-completed" : "colors work"
+                  - color_class = "colors work #{requirement.status}"
                   .focus-area{ class: color_class, tabindex: -1 }
                     %span.requirement_handle= t("icons.handle_html")
                     - if requirement.created?
@@ -60,8 +61,8 @@
                     = link_to(requirement.name, edit_mission_deliverable_requirement_path(@mission,deliverable, requirement), options)
                     %span.superscript= requirement.estimate
                     - unless requirement.description.blank?
-                      %br
-                      %span.requirement-description= requirement.description
+                      .subnote
+                        %span.requirement-description= requirement.description
                     - path = mission_deliverable_requirement_path(@mission, deliverable, requirement)
                     - options = { method: :delete, data: { command: 'D', confirm: t("flashes.destroy.are-you-sure") } }
                     = link_to("", path, options)
@@ -98,5 +99,5 @@
   %h3= t(".clone.title")
   %p= t(".clone.description")
   - path = clone_mission_path(@mission)
-  - options = { class: "action", method: :post }
+  - options = { class: "colors action", method: :post }
   = link_to(t("actions.clone"), path, options)

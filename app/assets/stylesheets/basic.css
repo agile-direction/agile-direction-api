@@ -13,54 +13,55 @@ body {
   font-size: 0.6em;
 }
 
+ul {
+  margin-bottom: 1em;
+}
+
 #page {
   position: relative;
   z-index: 2;
-  background-image:
-    linear-gradient(to bottom, rgba(0, 100, 200, 0) 0, rgba(0, 100, 200, 1) 100%);
-  padding: 2% 5%;
-  margin: 1% 1%;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
-#page,
+#page {
+  padding: 2% 4%;
+}
+
 footer {
-  padding: 2% 5%;
-  margin: 1% 1%;
+  margin: 2% 4%;
 }
 
 body {
   font-family: 'Open Sans Condensed', sans-serif;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.6);
   font-size: 24px;
   line-height: 1.8em;
-  background-color: rgba(0, 50, 100, 1);
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-body.error {
-  background-color: rgba(37, 1, 1, 1);
-}
-
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, h1 a {
   font-family: 'Oswald', sans-serif;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  border-bottom: 1px solid rgba(0, 50, 100, .2);
   padding-bottom: 0.5em;
+  color: rgba(0, 0, 0, .6);
 }
 
 a {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(0, 0, 0, 0.8);
   text-decoration: none;
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
   transition: background-color 0.2s ease,
               color 0.2s ease;
 }
 
 a:focus {
-  outline-color: rgba(166, 120, 3, 0.6);
+  outline-color: rgba(0, 50, 100, 0.4);
 }
 
 a:hover,
 a:focus {
-  color: rgba(166, 120, 3, 1);
+  color: rgba(160, 20, 0, 0.9);
   text-decoration: none;
 }
 
@@ -74,22 +75,12 @@ a.action {
   margin: 0 0 0 0.2em;
 }
 
-#page p a {
-  margin: 0;
-}
-
-#page p a:hover,
-#page p a:focus {
-  margin: 0;
-}
-
 a.action,
 input[type=submit] {
   text-decoration: none;
   color: rgba(255, 255, 255, 1);
-  background-color: rgba(166, 120, 3, 1);
   border: none;
-  transition: 0.4s;
+  transition: 0.2s;
   padding: 0.4em 0.8em;
 }
 
@@ -116,19 +107,15 @@ a.action.delete:focus {
   font-family: 'Oswald', sans-serif;
 }
 
-.logo {
-  color: rgba(255, 255, 255, 0.8);
-}
-
 label {
   cursor: pointer;
 }
 
 nav {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
   margin-bottom: 1em;
   display: flex;
   align-items: baseline;
+  border-bottom: 1px solid rgba(0, 50, 100, 0.2);
 }
 
 nav a {
@@ -140,7 +127,13 @@ nav h1 {
   border: none;
   display: inline;
   margin: 0;
+  padding: 0;
   flex-grow: 1;
+}
+
+nav h1 a {
+  font-style: normal;
+  border: none;
 }
 
 nav ul {
@@ -156,13 +149,14 @@ nav ul li {
   padding-right: 1em;
 }
 
-nav h1 a {
-  font-style: normal;
-  border: none;
-}
-
 .home.index #welcome-treatment {
   text-align: center;
+}
+
+.home.index #welcome-treatment h1 {
+  font-size: 3em;
+  line-height: 1.4em;
+  padding-bottom: 0;
 }
 
 .home.index #welcome-treatment #missions-happening {
@@ -170,11 +164,10 @@ nav h1 a {
   overflow: hidden;
   display: block;
   white-space: nowrap;
-}
-
-.home.index #welcome-treatment .logo {
-  font-size: 3em;
-  line-height: 1.4em;
+  direction: rtl;
+  font-family: 'Over the Rainbow', sans-serif;
+  color: rgba(0, 50, 100, 0.4);
+  position: relative;
 }
 
 .term {
@@ -188,41 +181,9 @@ nav h1 a {
   bottom: 0;
   right: 0;
   left: 0;
-  margin: 0;
+  margin: 2%;
   z-index: 8;
-}
-
-.flash.notice {
-  background-color: rgba(255, 255, 255, 0.6);
-  color: rgba(8, 1, 46, 1);
-}
-
-.flash.alert {
-  background-color: rgba(105, 0, 0, 0.6);
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.hud {
-  position: fixed;
-  padding: 2em;
-  margin: 2em;
-  position: fixed;
-  right: 0;
-  left: 0;
-  top: 0;
-  box-shadow: 0 0 100px rgba(183, 169, 255, 0.4);
   text-align: center;
-  z-index: 9;
-  background-color: rgba(3, 0, 14, 0.9);
-}
-
-#skip_to_content.hud {
-  top: 100%;
-}
-
-#skip_to_content.hud:focus {
-  top: inherit;
-  display: inherit;
 }
 
 .subtext {
@@ -242,19 +203,19 @@ section {
 
 #mission-count {
   text-align: center;
-  padding: 2em 1em;
   position: relative;
   overflow: hidden;
 }
 
 #mission-count h2 {
   font-size: 2em;
+  line-height: 1.4em;
 }
 
 #mission-count-background {
   font-size: 2em;
   line-height: 1.2em;
-  color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.3);
   z-index: 1;
   position: absolute;
   top: -40px;
@@ -267,6 +228,8 @@ section {
 #mission-count-foreground {
   position: relative;
   z-index: 2;
+  margin: 4px;
+  padding: 2em 1em;
 }
 
 #content {
@@ -279,34 +242,16 @@ section {
 
 footer {
   font-size: 0.8em;
-  opacity: 0.8;
+  opacity: 0.6;
+  border-top: 1px double rgba(0, 50, 100, 0.2);
 }
 
 .subnote {
   display: block;
-  font-size: 0.8em;
-  opacity: 0.8;
+  font-size: 0.9em;
+  opacity: 0.6;
 }
 
-
-.underline {
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
-  margin-bottom: 4px;
-}
-
-ul {
-  margin-bottom: 1em;
-}
-
-.home.styleguide #swatches {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.home.styleguide #swatches .swatch {
-  flex-grow: 1;
-}
 
 img#twitter-icon {
   height: 1.4em;
@@ -317,11 +262,8 @@ img#twitter-icon {
   body {
     font-size: 16px;
   }
-  ul {
-    padding-left: 2em;
-  }
 }
 
-i.large {
-  font-size: 1em;
+::selection {
+  background: rgba(0, 50, 100, 0.15);
 }

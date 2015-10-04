@@ -1,15 +1,3 @@
-.progress-created .progress-bar {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-.progress-started .progress-bar {
-  background-color: rgba(166, 120, 3, 1);
-}
-
-.progress-completed .progress-bar {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
 .progress {
   padding: 0.2em;
   line-height: 1em;
@@ -19,11 +7,10 @@
 
 .progress-bar {
   position: absolute;
-  height: 1px;
+  height: 4px;
   left: 0;
   bottom: 0;
-  width: 0%;
-  min-width: 2%;
+  min-width: 1%;
   z-index: 1;
 }
 

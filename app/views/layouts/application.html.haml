@@ -3,10 +3,7 @@
   %head
     %title= @title || t("head.default_title")
 
-    %link{ href: "https://fonts.googleapis.com/css?family=Oswald:400,700", rel: "stylesheet", type: "text/css" }
-    %link{ href: "https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300", rel: "stylesheet", type: "text/css" }
-    %link{ href: "https://fonts.googleapis.com/css?family=Special+Elite", rel: "stylesheet", type: "text/css" }
-
+    %link{ href: "https://fonts.googleapis.com/css?family=Over the Rainbow|Oswald:400,700|Open+Sans+Condensed:300|Shadows+Into+Light", rel: "stylesheet", type: "text/css" }
     %link{ href: asset_path("favicon.png"), type: "image/png", rel: :icon }
     %link{ rel: "apple-touch-icon", href: asset_path("icon.png") }
     %meta{ name: "viewport", content: "width=device-width, initial-scale=1" }
@@ -36,9 +33,9 @@
       %section#content{ tabindex: -1 }
         #flashes
           - if notice
-            %p.flash.notice= notice
+            %p.flash.notice.colors.action= notice
           - if alert
-            %p.flash.alert= alert
+            %p.flash.alert.colors.action.alternative= alert
 
         = yield
 

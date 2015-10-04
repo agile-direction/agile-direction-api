@@ -16,50 +16,41 @@ input[type=submit] {
 }
 
 .fill-me-in {
-  background-color: rgba(255, 255, 255, 0.03);
-  padding: 0.2em 1em;
-  margin-bottom: 0.6em;
-  position: relative;
+  background-color: rgba(0, 50, 100, 0.05);
+  padding: 0.4em 1em;
+  margin-bottom: 1px;
+  display: flex;
+  align-items: center;
 }
 
 .fill-me-in label {
   margin-right: 1em;
   display: inline-block;
-  width: 30%;
+  flex-grow: 1;
+  min-width: 30%;
+}
+
+.fill-me-in input[type=text],
+.fill-me-in select,
+.fill-me-in input[type=number] {
+  padding: 0.5em 5%;
+  font-size: 1em;
+  border: none;
+  flex-grow: 3;
 }
 
 .fill-me-in input[type=text],
 .fill-me-in input[type=number] {
-  width: 60%;
-  position: absolute;
-  padding: 0.5em 5%;
-  font-size: 1em;
-  top: -0.2em;
-  bottom: -0.2em;
-  right: -0.2em;
-  background-color: rgba(255, 255, 255, 0.2);
-  border: none;
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.fill-me-in select {
-  width: 70%;
-  position: absolute;
-  top: -0.2em;
-  bottom: -0.2em;
-  right: -0.2em;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: none;
-  color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(160, 40, 0, 0.6);
 }
 
 .fill-me-in input:valid {
-  color: rgba(255, 255, 255, 1);
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 1);
 }
 
 input[type=submit] {
   transition: 0.2s;
+  background-color: rgba(160, 40, 0, 0.6);
 }
 
 form:invalid input[type=submit] {

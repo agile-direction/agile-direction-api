@@ -225,11 +225,11 @@
   }
 
   var setFocusId = function(value) {
-    return window.location.hash = ('#/' + value);
+    window.location.hash = ('#/' + value);
+    syncFocusIdWithIndex();
   }
 
-  var ready = function() {
-    focusedElementIndex = -1;
+  var syncFocusIdWithIndex = function() {
     var focusId = getFocusId();
     if (focusId != "") {
       var selector = '#' + focusId + ' .focus-area';
@@ -237,17 +237,23 @@
       if (matches.length >= 1) {
         var element = matches.eq(0);
         var index = focusableElements().index(element);
-        focusedElementIndex = index;
-        focus(focusUp);
+        if (index != focusedElementIndex) {
+          focusedElementIndex = index;
+          focus(focusUp);
+        }
       }
-    };
+    }
+  }
+
+  var ready = function() {
+    focusedElementIndex = -1;
+    syncFocusIdWithIndex();
 
     $('.focus-area').on('focusin', function(event) {
       var parentWithId = $(event.target).parents('[data-id]');
       var id = parentWithId.data('id');
       setFocusId(id);
     });
-
   };
 
   $(document).ready(initializeKeydown);
