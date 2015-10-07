@@ -62,7 +62,7 @@
                     %span.superscript= requirement.estimate
                     - unless requirement.description.blank?
                       .subnote
-                        %span.requirement-description= requirement.description
+                        %span.requirement-description= inject_links(requirement.description)
                     - path = mission_deliverable_requirement_path(@mission, deliverable, requirement)
                     - options = { method: :delete, data: { command: 'D', confirm: t("flashes.destroy.are-you-sure") } }
                     = link_to("", path, options)
