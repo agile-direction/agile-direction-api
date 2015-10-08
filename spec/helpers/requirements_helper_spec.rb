@@ -11,6 +11,12 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe(RequirementsHelper, { type: :helper }) do
+  describe "#marked_down" do
+    it "outputs string with links" do
+        expect(helper.marked_down("foo.com")).to match(%r{<a href=\"http://foo.com\"})
+    end
+  end
+
   describe "#inject_links" do
     describe "finding links" do
       it "returns links without http" do

@@ -27,6 +27,14 @@ module RequirementsHelper
   ALLOWED_DOMAIN_CHARACTERS = /([\w\-]+\.)+/
   ALLOWED_DOMAINS = %r{#{ALLOWED_DOMAIN_CHARACTERS}#{ALLOWED_TLDS_REGEX}}
 
+  attr_accessor(:renderer)
+
+  def marked_down(string)
+    self.renderer ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+    linked_string = inject_links(string)
+    @renderer.render(linked_string)
+  end
+
   def inject_links(string)
     result = string.gsub(%r{(\w+?:\/\/)?(#{ALLOWED_DOMAINS})(\/.*)?}) do |url|
       url = "#{HTTP_PROTOCOL}://#{url}" unless url.match(PROTOCOL_MATCHER)

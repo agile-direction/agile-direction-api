@@ -13,6 +13,7 @@ gem("omniauth-twitter")
 gem("pg")
 gem("rack-cors")
 gem("rails", "4.2.1")
+gem("redcarpet")
 gem("sprockets-es6")
 gem("turbolinks")
 
