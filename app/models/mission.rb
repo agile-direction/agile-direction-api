@@ -6,8 +6,8 @@ class Mission < ActiveRecord::Base
 
   has_many(:participants, { as: :joinable })
   has_many(:users, { through: :participants })
-  belongs_to(:parent, { class: Mission })
-  has_many(:clones, { class: Mission, foreign_key: :parent_id })
+  belongs_to(:parent, { class_name: "Mission" })
+  has_many(:clones, { class_name: "Mission", foreign_key: :parent_id })
 
   def clone!
     new_mission = dup
