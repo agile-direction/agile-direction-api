@@ -1,4 +1,4 @@
-ruby("2.2.5")
+ruby("2.4.9")
 source("https://rubygems.org")
 
 gem("aasm")
