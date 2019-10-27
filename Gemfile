@@ -12,7 +12,7 @@ gem("jquery-ui-rails")
 gem("omniauth-twitter")
 gem("pg", "0.18.4")
 gem("rack-cors")
-gem("rails", "4.2.1")
+gem("rails", "4.2.11.1")
 gem("sprockets-es6")
 gem("turbolinks")
 
